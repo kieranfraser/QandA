@@ -10,7 +10,7 @@ declare var firebase: any;
 @Component({
   selector: 'home-cmp',
   templateUrl: 'home/templates/todo.html',
-  styleUrls: ['home/styles/todo.css'],
+  styleUrls: ['home/styles/main.css'],
   providers: [HomeService, DashboardComponent],
   directives: [ROUTER_DIRECTIVES]
 })

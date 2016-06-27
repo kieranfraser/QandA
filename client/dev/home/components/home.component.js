@@ -28,7 +28,7 @@ var HomeComponent = (function () {
         core_1.Component({
             selector: 'home-cmp',
             templateUrl: 'home/templates/todo.html',
-            styleUrls: ['home/styles/todo.css'],
+            styleUrls: ['home/styles/main.css'],
             providers: [home_service_1.HomeService, dashboard_component_1.DashboardComponent],
             directives: [router_1.ROUTER_DIRECTIVES]
         }),
@@ -42,3 +42,4 @@ var HomeComponent = (function () {
     return HomeComponent;
 }());
 exports.HomeComponent = HomeComponent;
+//# sourceMappingURL=home.component.js.map
