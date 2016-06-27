@@ -8,7 +8,7 @@ declare var firebase: any;
 @Component({
   selector: 'dashboard-cmp',
   templateUrl: 'dashboard/templates/dashboard.html',
-  styleUrls: ['dashboard/styles/todo.css'],
+  styleUrls: ['dashboard/styles/main.css'],
   directives: [CORE_DIRECTIVES]
 })
 

@@ -23,7 +23,7 @@ var DashboardComponent = (function () {
         core_1.Component({
             selector: 'dashboard-cmp',
             templateUrl: 'dashboard/templates/dashboard.html',
-            styleUrls: ['dashboard/styles/todo.css'],
+            styleUrls: ['dashboard/styles/main.css'],
             directives: [common_1.CORE_DIRECTIVES]
         }),
         __param(0, core_1.Inject(core_1.forwardRef(function () { return home_component_1.HomeComponent; }))), 
@@ -32,3 +32,4 @@ var DashboardComponent = (function () {
     return DashboardComponent;
 }());
 exports.DashboardComponent = DashboardComponent;
+//# sourceMappingURL=dashboard.component.js.map
