@@ -1,30 +1,32 @@
 import {Injectable} from "@angular/core";
-
-declare var firebase: any;
+import {Http, Response, Headers, URLSearchParams} from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HomeService {
 
-  //ToDo: These keys need to be moved to server side
-  constructor() {
-    var config = {
-      apiKey: "",
-      authDomain: "",
-      databaseURL: "",
-      storageBucket: "",
-    };
-    //firebase.initializeApp(config);
+  constructor(private http: Http) {}
 
+  getUser(userId: string){
+    let queryString = '?userid='+userId;
+    return this.http.get('/api/getUser'+queryString)
+      .map(res => res.json());
   }
 
-  /**
-   * Create a new user (on first log-in with deezer account
-   * @param value
-   */
-  public createNewUser(id, name){
-    firebase.database().ref('users/' + id).set({
-      username: name,
-    });
+  createUser(json: string){
+
+    var headers = new Headers();
+    headers.append('Content-Type',
+      'application/json');
+
+    return this.http.post('/api/createUser',
+      json, {
+        headers: headers
+      }).map( res => res.json());
   }
 
 }
+
+
+
+

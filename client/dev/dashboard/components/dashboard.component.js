@@ -15,19 +15,27 @@ var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var home_component_1 = require("../../home/components/home.component");
 var DashboardComponent = (function () {
-    function DashboardComponent(_parent) {
+    function DashboardComponent(_parent, ref) {
         this._parent = _parent;
+        this.ref = ref;
+        this.userLoggedIn = false;
     }
-    DashboardComponent.prototype.ngOnInit = function () { };
+    DashboardComponent.prototype.ngOnInit = function () {
+        console.log('init');
+        this.userLoggedIn = this._parent.userLoggedIn;
+    };
+    DashboardComponent.prototype.refresh = function () {
+        this.ref.detectChanges();
+    };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'dashboard-cmp',
             templateUrl: 'dashboard/templates/dashboard.html',
-            styleUrls: ['dashboard/styles/todo.css'],
+            styleUrls: ['dashboard/styles/todo.scss'],
             directives: [common_1.CORE_DIRECTIVES]
         }),
         __param(0, core_1.Inject(core_1.forwardRef(function () { return home_component_1.HomeComponent; }))), 
-        __metadata('design:paramtypes', [home_component_1.HomeComponent])
+        __metadata('design:paramtypes', [home_component_1.HomeComponent, core_1.ChangeDetectorRef])
     ], DashboardComponent);
     return DashboardComponent;
 }());

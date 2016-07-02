@@ -6,7 +6,8 @@ System.config({
       "reflect-metadata": "./reflect-metadata"
     },
     map: {
-      "rxjs": "./rxjs"
+      "rxjs": "./rxjs",
+      "angular2-jwt": "./angular2-jwt/angular2-jwt"
     },
     packages: {
       '@angular/common': {
@@ -36,6 +37,9 @@ System.config({
       'dist': {
         defaultExtension: 'js',
         format: 'register'
+      },
+      "/angular2-jwt": {
+        defaultExtension: "js"
       }
     }
   });

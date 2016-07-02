@@ -10,6 +10,7 @@ export const tasks = {
   CLIENT_BUILD_DIST: 'client.build:dist',
 
   CLIENT_CSS_DIST: 'client.build_css:dist',
+  CLIENT_SCSS_DIST: 'client.build_scss:dist',
   CLIENT_JS_DIST: 'client.build_js:dist',
   CLIENT_VIEWS_DIST: 'client.views:dist',
   CLIENT_IMAGE_DIST: 'client.imgs:dist',

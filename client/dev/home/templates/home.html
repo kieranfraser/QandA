@@ -1,0 +1,15 @@
+<nav class="navbar navbar-inverse" *ngIf="userLoggedIn === true">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">Qanda</a>
+
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li  *ngIf="userLoggedIn === true" ><img class="img-circle user-profiler" src="{{userProfile}}" alt="Profiler" height="35px" width="35px"></li>
+      <li  *ngIf="userLoggedIn === true" ><a (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="main">
+  <router-outlet></router-outlet>
+</div>

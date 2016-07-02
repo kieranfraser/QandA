@@ -9,29 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var http_1 = require('@angular/http');
+require('rxjs/add/operator/map');
 var HomeService = (function () {
-    //ToDo: These keys need to be moved to server side
-    function HomeService() {
-        var config = {
-            apiKey: "",
-            authDomain: "",
-            databaseURL: "",
-            storageBucket: "",
-        };
-        //firebase.initializeApp(config);
+    function HomeService(http) {
+        this.http = http;
     }
-    /**
-     * Create a new user (on first log-in with deezer account
-     * @param value
-     */
-    HomeService.prototype.createNewUser = function (id, name) {
-        firebase.database().ref('users/' + id).set({
-            username: name,
-        });
+    HomeService.prototype.getUser = function (userId) {
+        var queryString = '?userid=' + userId;
+        return this.http.get('/api/getUser' + queryString)
+            .map(function (res) { return res.json(); });
+    };
+    HomeService.prototype.createUser = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('/api/createUser', json, {
+            headers: headers
+        }).map(function (res) { return res.json(); });
     };
     HomeService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], HomeService);
     return HomeService;
 }());
