@@ -22,6 +22,9 @@ export class LandingComponent implements OnInit {
                 @Inject(forwardRef(() => HomeComponent)) private _parent:HomeComponent) {}
 
 
+  /**
+   * Set up the Lock interface
+   */
   ngOnInit() {
     this.lock.show({
       container: 'authLogin'
