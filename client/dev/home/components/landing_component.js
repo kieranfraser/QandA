@@ -22,6 +22,9 @@ var LandingComponent = (function () {
         this._parent = _parent;
         this.lock = new Auth0Lock('ZUCNGuYeq1sAevQJNPUjSPKodgP8yBEy', 'qandauth.eu.auth0.com');
     }
+    /**
+     * Set up the Lock interface
+     */
     LandingComponent.prototype.ngOnInit = function () {
         this.lock.show({
             container: 'authLogin'
