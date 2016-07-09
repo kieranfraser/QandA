@@ -17,10 +17,11 @@ var LandingComponent = (function () {
         core_1.Component({
             selector: 'landing-cmp',
             templateUrl: 'home/templates/landing.html',
-            styleUrls: ['home/styles/todo.css']
+            styleUrls: ['home/styles/main.css']
         }), 
         __metadata('design:paramtypes', [])
     ], LandingComponent);
     return LandingComponent;
 }());
 exports.LandingComponent = LandingComponent;
+//# sourceMappingURL=landing.component.js.map

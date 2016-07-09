@@ -1,1 +1,22 @@
-"use strict";var __decorate=this&&this.__decorate||function(e,t,r,c){var o,a=arguments.length,n=3>a?t:null===c?c=Object.getOwnPropertyDescriptor(t,r):c;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)n=Reflect.decorate(e,t,r,c);else for(var i=e.length-1;i>=0;i--)(o=e[i])&&(n=(3>a?o(n):a>3?o(t,r,n):o(t,r))||n);return a>3&&n&&Object.defineProperty(t,r,n),n},__metadata=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},core_1=require("@angular/core"),AboutService=function(){function e(){}return e=__decorate([core_1.Injectable(),__metadata("design:paramtypes",[])],e)}();exports.AboutService=AboutService;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var AboutService = (function () {
+    function AboutService() {
+    }
+    AboutService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], AboutService);
+    return AboutService;
+}());
+exports.AboutService = AboutService;
+//# sourceMappingURL=about.service.js.map

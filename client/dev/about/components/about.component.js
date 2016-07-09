@@ -17,10 +17,11 @@ var AboutComponent = (function () {
         core_1.Component({
             selector: 'about-cmp',
             templateUrl: 'about/templates/about.html',
-            styleUrls: ['about/styles/todo.css']
+            styleUrls: ['about/styles/main.css']
         }), 
         __metadata('design:paramtypes', [])
     ], AboutComponent);
     return AboutComponent;
 }());
 exports.AboutComponent = AboutComponent;
+//# sourceMappingURL=about.component.js.map

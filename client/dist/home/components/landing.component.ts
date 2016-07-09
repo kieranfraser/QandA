@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'landing-cmp',
   templateUrl: 'home/templates/landing.html',
-  styleUrls: ['home/styles/todo.css']
+  styleUrls: ['home/styles/main.css']
 })
 
 export class LandingComponent implements OnInit {
