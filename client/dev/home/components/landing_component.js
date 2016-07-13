@@ -35,8 +35,6 @@ var LandingComponent = (function () {
             }
             localStorage.setItem('profile', profile);
             localStorage.setItem('id_token', id_token);
-            this._parent.userLoggedIn = true;
-            this.ref.detectChanges();
             this._parent.goToDashboard();
         }.bind(this));
     };
@@ -45,7 +43,11 @@ var LandingComponent = (function () {
         localStorage.removeItem('id_token');
     };
     LandingComponent.prototype.loggedIn = function () {
+        this._parent.goToDashboard();
         return angular2_jwt_1.tokenNotExpired();
+    };
+    LandingComponent.prototype.ngOnDestroy = function () {
+        this.ref.detach();
     };
     LandingComponent = __decorate([
         core_1.Component({

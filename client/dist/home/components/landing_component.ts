@@ -1,5 +1,5 @@
-import {Component, OnInit, ChangeDetectorRef, Inject, forwardRef, Input} from '@angular/core';
-import {Router, Routes, ROUTER_DIRECTIVES} from "@angular/router";
+import {Component, OnInit, OnDestroy, ChangeDetectorRef, Inject, forwardRef, Input} from '@angular/core';
+import {Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {HomeService} from "../services/home.service";
 import {DashboardComponent} from "../../dashboard/components/dashboard.component";
 import {AboutComponent} from "../../about/components/about.component";
@@ -14,7 +14,7 @@ declare var Auth0Lock;
   styleUrls: ['home/styles/landing.scss']
 })
 
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
 
   lock = new Auth0Lock('ZUCNGuYeq1sAevQJNPUjSPKodgP8yBEy', 'qandauth.eu.auth0.com');
 
@@ -35,8 +35,6 @@ export class LandingComponent implements OnInit {
       }
       localStorage.setItem('profile', profile);
       localStorage.setItem('id_token', id_token);
-      this._parent.userLoggedIn = true;
-      this.ref.detectChanges();
       this._parent.goToDashboard();
     }.bind(this));
   }
@@ -47,7 +45,12 @@ export class LandingComponent implements OnInit {
   }
 
   loggedIn() {
+    this._parent.goToDashboard();
     return tokenNotExpired();
+  }
+
+  ngOnDestroy(){
+    this.ref.detach();
   }
 
 }

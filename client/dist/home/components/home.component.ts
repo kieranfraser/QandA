@@ -1,5 +1,5 @@
-import {Component, OnInit, ChangeDetectorRef, NgZone} from '@angular/core';
-import {Router, Routes, ROUTER_DIRECTIVES} from "@angular/router";
+import {Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, NgZone} from '@angular/core';
+import {Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {HomeService} from "../services/home.service";
 import {DashboardComponent} from "../../dashboard/components/dashboard.component";
 import {AboutComponent} from "../../about/components/about.component";
@@ -12,17 +12,11 @@ declare var Auth0Lock;
   selector: 'home-cmp',
   templateUrl: 'home/templates/home.html',
   styleUrls: ['home/styles/home.scss'],
-  providers: [HomeService, DashboardComponent, LandingComponent],
+  providers: [HomeService],
   directives: [ROUTER_DIRECTIVES]
 })
 
-@Routes([
-  {path: '/', component: LandingComponent},
-  {path: '/about', component: AboutComponent},
-  {path: '/dashboard', component: DashboardComponent}
-])
-
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   userLoggedIn = false;
 
@@ -38,10 +32,40 @@ export class HomeComponent implements OnInit {
      jQuery("#wrapper").toggleClass("active");
      alert(1);
      });*/
+
+  }
+
+  ngAfterViewInit(){
+    if(tokenNotExpired()){
+      console.log("Logged In");
+      this.goToDashboard();
+    }
   }
 
   goToDashboard(){
+    this.userLoggedIn = true;
     this.zone.run(() => this.router.navigate(['/dashboard']));
+  }
+
+  /**
+   * Function fired when the logout button is pressed. Deletes the user's JWT
+   * and profile from local storage, sets the logged in boolean as false so the
+   * login button is redisplayed and redirects to the landing page of the site.
+   */
+  logout() {
+    console.log('User has logged out. Redirect to landing page.');
+    localStorage.removeItem('profile');
+    localStorage.removeItem('id_token');
+    this.userLoggedIn = false;
+    this.zone.run(() => this.router.navigate(['/home']));
+  }
+
+  click(){
+    this.zone.run(() => this.router.navigate(['/dashboard']));
+  }
+
+  ngOnDestroy(){
+    this.ref.detach();
   }
 
 }

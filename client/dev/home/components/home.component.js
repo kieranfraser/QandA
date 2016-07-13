@@ -11,9 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require("@angular/router");
 var home_service_1 = require("../services/home.service");
-var dashboard_component_1 = require("../../dashboard/components/dashboard.component");
-var about_component_1 = require("../../about/components/about.component");
-var landing_component_1 = require("./landing_component");
+var angular2_jwt_1 = require('angular2-jwt');
 var HomeComponent = (function () {
     function HomeComponent(_homeService, router, ref, zone) {
         this._homeService = _homeService;
@@ -30,23 +28,45 @@ var HomeComponent = (function () {
          alert(1);
          });*/
     };
+    HomeComponent.prototype.ngAfterViewInit = function () {
+        if (angular2_jwt_1.tokenNotExpired()) {
+            console.log("Logged In");
+            this.goToDashboard();
+        }
+    };
     HomeComponent.prototype.goToDashboard = function () {
         var _this = this;
+        this.userLoggedIn = true;
         this.zone.run(function () { return _this.router.navigate(['/dashboard']); });
+    };
+    /**
+     * Function fired when the logout button is pressed. Deletes the user's JWT
+     * and profile from local storage, sets the logged in boolean as false so the
+     * login button is redisplayed and redirects to the landing page of the site.
+     */
+    HomeComponent.prototype.logout = function () {
+        var _this = this;
+        console.log('User has logged out. Redirect to landing page.');
+        localStorage.removeItem('profile');
+        localStorage.removeItem('id_token');
+        this.userLoggedIn = false;
+        this.zone.run(function () { return _this.router.navigate(['/home']); });
+    };
+    HomeComponent.prototype.click = function () {
+        var _this = this;
+        this.zone.run(function () { return _this.router.navigate(['/dashboard']); });
+    };
+    HomeComponent.prototype.ngOnDestroy = function () {
+        this.ref.detach();
     };
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home-cmp',
             templateUrl: 'home/templates/home.html',
             styleUrls: ['home/styles/home.scss'],
-            providers: [home_service_1.HomeService, dashboard_component_1.DashboardComponent, landing_component_1.LandingComponent],
+            providers: [home_service_1.HomeService],
             directives: [router_1.ROUTER_DIRECTIVES]
-        }),
-        router_1.Routes([
-            { path: '/', component: landing_component_1.LandingComponent },
-            { path: '/about', component: about_component_1.AboutComponent },
-            { path: '/dashboard', component: dashboard_component_1.DashboardComponent }
-        ]), 
+        }), 
         __metadata('design:paramtypes', [home_service_1.HomeService, router_1.Router, core_1.ChangeDetectorRef, core_1.NgZone])
     ], HomeComponent);
     return HomeComponent;

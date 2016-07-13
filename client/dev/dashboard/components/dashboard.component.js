@@ -15,17 +15,19 @@ var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var home_component_1 = require("../../home/components/home.component");
 var DashboardComponent = (function () {
+    //userLoggedIn = false;
     function DashboardComponent(_parent, ref) {
         this._parent = _parent;
         this.ref = ref;
-        this.userLoggedIn = false;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         console.log('init');
-        this.userLoggedIn = this._parent.userLoggedIn;
     };
     DashboardComponent.prototype.refresh = function () {
         this.ref.detectChanges();
+    };
+    DashboardComponent.prototype.ngOnDestroy = function () {
+        this.ref.detach();
     };
     DashboardComponent = __decorate([
         core_1.Component({
