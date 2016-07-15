@@ -9,30 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var HomeService = (function () {
+var user_1 = require("../../models/user");
+var DashboardService = (function () {
     //ToDo: These keys need to be moved to server side
-    function HomeService() {
-        var config = {
-            apiKey: "AIzaSyA1E0hp_78RcMgHWj7Vpbg6AkHzT2hZfto",
-            authDomain: "sonar-11442.firebaseapp.com",
-            databaseURL: "https://sonar-11442.firebaseio.com",
-            storageBucket: "sonar-11442.appspot.com",
-        };
-        firebase.initializeApp(config);
+    function DashboardService() {
     }
     /**
      * Create a new user (on first log-in with deezer account
      * @param value
      */
-    HomeService.prototype.createNewUser = function (id, name) {
-        firebase.database().ref('users/' + id).set({
-            username: name,
-        });
+    DashboardService.prototype.createNewUser = function (user) {
+        firebase.database().ref('users/' + user.userid).set(user);
     };
-    HomeService = __decorate([
+    /**
+     * Helper function to create a new user from a JSON object
+     * (such as the snapshot.val() returned from firebase.
+     * @param object
+       */
+    DashboardService.prototype.userFromJSON = function (object) {
+        var user = new user_1.User(object["userid"], object["classes"], object["questions"], object["notifications"], object["auth"], object["anonymous"]);
+        return user;
+    };
+    DashboardService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], HomeService);
-    return HomeService;
+    ], DashboardService);
+    return DashboardService;
 }());
-exports.HomeService = HomeService;
+exports.DashboardService = DashboardService;

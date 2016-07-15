@@ -1,0 +1,1 @@
+"use strict";var OnlineUser=function(){function e(e,n,i){this.name=e,this.picture=n,this.userId=i}return e}();exports.OnlineUser=OnlineUser;

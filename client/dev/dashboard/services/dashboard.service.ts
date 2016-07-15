@@ -1,30 +1,39 @@
 import {Injectable} from "@angular/core";
+import {User} from "../../models/user";
 
 declare var firebase: any;
 
 @Injectable()
-export class HomeService {
+export class DashboardService {
 
   //ToDo: These keys need to be moved to server side
   constructor() {
-    var config = {
-      apiKey: "AIzaSyA1E0hp_78RcMgHWj7Vpbg6AkHzT2hZfto",
-      authDomain: "sonar-11442.firebaseapp.com",
-      databaseURL: "https://sonar-11442.firebaseio.com",
-      storageBucket: "sonar-11442.appspot.com",
-    };
-    firebase.initializeApp(config);
-
   }
 
   /**
    * Create a new user (on first log-in with deezer account
    * @param value
    */
-  public createNewUser(id, name){
-    firebase.database().ref('users/' + id).set({
-      username: name,
-    });
+  public createNewUser(user: User){
+    firebase.database().ref('users/' + user.userid).set(user);
   }
+
+  /**
+   * Helper function to create a new user from a JSON object
+   * (such as the snapshot.val() returned from firebase.
+   * @param object
+     */
+  public userFromJSON(object: JSON){
+    var user = new User(
+      object["userid"],
+      object["classes"],
+      object["questions"],
+      object["notifications"],
+      object["auth"],
+      object["anonymous"]
+    );
+    return user;
+  }
+
 
 }

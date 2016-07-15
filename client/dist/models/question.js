@@ -1,0 +1,1 @@
+"use strict";var Question=function(){function s(s,t,i,e,h,n,u,o,r,a,c,m){this.classid=s,this.question=t,this.summary=i,this.choices=e,this.answers=h,this.user=n,this.date=u,this.type=o,this.anonymous=r,this.username=a,this.picture=c,this.tags=m}return s}();exports.Question=Question;

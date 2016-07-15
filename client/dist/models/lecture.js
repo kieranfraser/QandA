@@ -1,0 +1,1 @@
+"use strict";var Lecture=function(){function t(t,e,s,i){this.name=t,this.participants=e,this.questions=s,this.tags=i}return t}();exports.Lecture=Lecture;
