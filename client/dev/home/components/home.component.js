@@ -13,10 +13,9 @@ var router_1 = require("@angular/router");
 var home_service_1 = require("../services/home.service");
 var angular2_jwt_1 = require('angular2-jwt');
 var HomeComponent = (function () {
-    function HomeComponent(_homeService, router, ref, zone) {
+    function HomeComponent(_homeService, router, zone) {
         this._homeService = _homeService;
         this.router = router;
-        this.ref = ref;
         this.zone = zone;
         this.userLoggedIn = false;
     }
@@ -27,12 +26,13 @@ var HomeComponent = (function () {
          jQuery("#wrapper").toggleClass("active");
          alert(1);
          });*/
-    };
-    HomeComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
         if (angular2_jwt_1.tokenNotExpired()) {
             console.log("Logged In");
-            this.goToDashboard();
+            setTimeout(function () { return _this.goToDashboard(); }, 0);
         }
+    };
+    HomeComponent.prototype.ngAfterViewInit = function () {
     };
     HomeComponent.prototype.goToDashboard = function () {
         var _this = this;
@@ -56,9 +56,6 @@ var HomeComponent = (function () {
         var _this = this;
         this.zone.run(function () { return _this.router.navigate(['/dashboard']); });
     };
-    HomeComponent.prototype.ngOnDestroy = function () {
-        this.ref.detach();
-    };
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home-cmp',
@@ -67,7 +64,7 @@ var HomeComponent = (function () {
             providers: [home_service_1.HomeService],
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [home_service_1.HomeService, router_1.Router, core_1.ChangeDetectorRef, core_1.NgZone])
+        __metadata('design:paramtypes', [home_service_1.HomeService, router_1.Router, core_1.NgZone])
     ], HomeComponent);
     return HomeComponent;
 }());

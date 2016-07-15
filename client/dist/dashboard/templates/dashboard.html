@@ -1,1 +1,20 @@
-<div class="container"><h1>Dashboard</h1><h1 *ngIf="userLoggedIn === true">Hello</h1></div>
+<div class="container-fluid feed-background" style="height: 100vh"><div class="container"><div class="row" style="margin-top: 1%"><div class="col-sm-3 col-centered"><!--<div class="btn-group">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#classListModal">All Classes</button>&lt;!&ndash;data-backdrop="static" data-keyboard="false"&ndash;&gt;
+        </div>--></div><div class="col-sm-6 col-centered"><!--<tag-search [tags]="searchTags"></tag-search>--></div><!-- Optional: clear the XS cols if their content doesn't match in height --><div class="clearfix visible-xs-block"></div><div class="col-sm-3 col-centered"><!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addClassModal">Add Class</button><!--(click)="isCollapsedClass = !isCollapsedClass"--><!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#askQuestionModal" *ngIf="selectedClass != ''">Ask Question</button>&lt;!&ndash;(click)="isCollapsedQuestion = !isCollapsedClass"&ndash;&gt;--></div></div></div><div class="container-fluid"><div class="row"><div class="col-xs-12 col-md-3"><div class="panel panel-default" style="margin-top: 15px"><div class="panel-body"><!--<div class="btn-group" style="width: 100%; height: 50%;" *ngIf="userClasses.length > 0">
+              <div class="row" style="width: 100%;" *ngFor="let class of classes">
+                <label style="width: 100%; margin-left: 5%; margin-top: 1%; overflow-x: hidden; text-overflow: ellipsis" class="btn btn-primary" *ngIf="class['joined'] === true" [(ngModel)]="selectedClass" (click)="classChange(class)" btnRadio="{{class['class']}}">{{class['class']}}</label>
+              </div>
+            </div>
+            <div *ngIf="userClasses.length === 0">
+              <h4 style="text-align: justify"><small>You haven't joined any classes yet. Click the "All Classes" button above to join a class and have it added to your class list.</small></h4>
+            </div>--></div></div><div><div class="panel panel-default"><div class="panel-heading" style="background-color: #2196f3"><h5><small style="color: white">Online Users</small></h5></div><div class="panel-body"><!--<div class="row" style="padding: 5%;" *ngFor="let user of onlineUsers">
+                <div class=".col-xs-6" *ngIf="user != null">
+                  <img style="float: left; margin: 4%;" class=" img-circle" src="{{user.picture}}" alt="User:" height="35px" width="35px">
+                </div>
+                <div class=".col-xs-6" *ngIf="user != null">
+                  <h5><small>{{user.name}}</small></h5>
+                </div>
+              </div>--></div></div><h6 style="text-align: center">Are you a Lecturer? <a style="text-decoration: underline" data-toggle="modal" data-target="#authLecturer">Get Authorised</a></h6></div></div><div class="col-xs-12 col-md-9"><!--<question-feed *ngIf="!emptyFeed" [classValue]="selectedClass" [questions]="questions">Loading...</question-feed>--><!--<h5 *ngIf="emptyFeed && selectedClass != ''"> No questions found. Be the first to start a discussion! </h5>
+        <div *ngIf="emptyFeed && selectedClass === ''">
+          <h5>Welcome to the Dashboard</h5>
+        </div>--></div></div></div></div><!--&lt;!&ndash; Class List Modal &ndash;&gt;--><!--<div id="classListModal" class="modal fade" role="dialog">--><!--<div class="modal-dialog modal-sm">--><!--<class-list [classes]="classes"></class-list>--><!--</div>--><!--</div>--><!--&lt;!&ndash; Lecturer Authorise Modal &ndash;&gt;--><!--<div id="authLecturer" class="modal fade" role="dialog">--><!--<div class="modal-dialog">--><!--<lecturer-auth></lecturer-auth>--><!--</div>--><!--</div>--><!--&lt;!&ndash; Ask Question Modal &ndash;&gt;--><!--<div id="askQuestionModal" class="modal fade" role="dialog">--><!--<div class="modal-dialog">--><!--<question-input-form [selectedClass]="selectedClass"></question-input-form>--><!--</div>--><!--</div>--><!--&lt;!&ndash; Add Class Modal &ndash;&gt;--><!--<div id="addClassModal" class="modal fade" role="dialog">--><!--<div class="modal-dialog">--><!--<class-input></class-input>--><!--</div>--> <!--</div>-->

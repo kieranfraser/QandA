@@ -15,13 +15,14 @@ var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var home_component_1 = require("../../home/components/home.component");
 var DashboardComponent = (function () {
-    //userLoggedIn = false;
     function DashboardComponent(_parent, ref) {
         this._parent = _parent;
         this.ref = ref;
+        this.userLoggedIn = true;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         console.log('init');
+        this.userLoggedIn = this._parent.userLoggedIn;
     };
     DashboardComponent.prototype.refresh = function () {
         this.ref.detectChanges();

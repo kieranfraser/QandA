@@ -14,13 +14,14 @@ declare var firebase: any;
 
 export class DashboardComponent implements OnInit {
 
-  //userLoggedIn = false;
+  userLoggedIn = true;
 
   constructor(@Inject(forwardRef(() => HomeComponent)) private _parent:HomeComponent,
               private ref: ChangeDetectorRef) {}
 
   ngOnInit(){
     console.log('init');
+    this.userLoggedIn = this._parent.userLoggedIn;
   }
 
   refresh(){

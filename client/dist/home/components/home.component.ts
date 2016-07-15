@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, NgZone} from '@angular/core';
+import {Component, OnInit, AfterViewInit, DoCheck, NgZone} from '@angular/core';
 import {Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {HomeService} from "../services/home.service";
 import {DashboardComponent} from "../../dashboard/components/dashboard.component";
@@ -16,11 +16,11 @@ declare var Auth0Lock;
   directives: [ROUTER_DIRECTIVES]
 })
 
-export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
   userLoggedIn = false;
 
-  constructor(private _homeService: HomeService, private router: Router, private ref: ChangeDetectorRef,
+  constructor(private _homeService: HomeService, private router: Router,
               private zone:NgZone) {}
 
 
@@ -33,13 +33,13 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
      alert(1);
      });*/
 
+    if(tokenNotExpired()){
+      console.log("Logged In");
+      setTimeout(() => this.goToDashboard(), 0);
+    }
   }
 
   ngAfterViewInit(){
-    if(tokenNotExpired()){
-      console.log("Logged In");
-      this.goToDashboard();
-    }
   }
 
   goToDashboard(){
@@ -62,10 +62,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   click(){
     this.zone.run(() => this.router.navigate(['/dashboard']));
-  }
-
-  ngOnDestroy(){
-    this.ref.detach();
   }
 
 }
