@@ -2,9 +2,9 @@
   <div class="container">
     <div class="row" style="margin-top: 1%">
       <div class="col-sm-3 col-centered">
-        <!--<div class="btn-group">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#classListModal">All Classes</button>&lt;!&ndash;data-backdrop="static" data-keyboard="false"&ndash;&gt;
-        </div>-->
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#classListModal">All Classes</button><!--data-backdrop="static" data-keyboard="false"-->
+        </div>
       </div>
       <div class="col-sm-6 col-centered">
         <!--<tag-search [tags]="searchTags"></tag-search>-->
@@ -12,7 +12,7 @@
       <!-- Optional: clear the XS cols if their content doesn't match in height -->
       <div class="clearfix visible-xs-block"></div>
       <div class="col-sm-3 col-centered">
-        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addClassModal">Add Class</button><!--(click)="isCollapsedClass = !isCollapsedClass"-->
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addClassModal">Add Class</button>&lt;!&ndash;(click)="isCollapsedClass = !isCollapsedClass"-->
         <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#askQuestionModal" *ngIf="selectedClass != ''">Ask Question</button>&lt;!&ndash;(click)="isCollapsedQuestion = !isCollapsedClass"&ndash;&gt;-->
       </div>
     </div>
@@ -62,14 +62,13 @@
     </div>
   </div>
 </div>
-
-<!--&lt;!&ndash; Class List Modal &ndash;&gt;-->
-<!--<div id="classListModal" class="modal fade" role="dialog">-->
-  <!--<div class="modal-dialog modal-sm">-->
-    <!--<class-list [classes]="classes"></class-list>-->
-  <!--</div>-->
-<!--</div>-->
-<!--&lt;!&ndash; Lecturer Authorise Modal &ndash;&gt;-->
+<!-- Class List Modal -->
+<div id="classListModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <class-list [classes]="classes"></class-list>
+  </div>
+</div>
+<!-- Lecturer Authorise Modal -->
 <!--<div id="authLecturer" class="modal fade" role="dialog">-->
   <!--<div class="modal-dialog">-->
     <!--<lecturer-auth></lecturer-auth>-->
@@ -81,7 +80,7 @@
     <!--<question-input-form [selectedClass]="selectedClass"></question-input-form>-->
   <!--</div>-->
 <!--</div>-->
-<!--&lt;!&ndash; Add Class Modal &ndash;&gt;-->
+ <!--Add Class Modal -->
 <!--<div id="addClassModal" class="modal fade" role="dialog">-->
   <!--<div class="modal-dialog">-->
     <!--<class-input></class-input>-->

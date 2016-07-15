@@ -20,13 +20,20 @@ var HomeComponent = (function () {
         this.userLoggedIn = false;
     }
     HomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var config = {
+            apiKey: "AIzaSyB4wQm5C0KbQmCK3aDGPqjWMZxRoS_UD3U",
+            authDomain: "qanda-1370.firebaseapp.com",
+            databaseURL: "https://qanda-1370.firebaseio.com",
+            storageBucket: "qanda-1370.appspot.com",
+        };
+        firebase.initializeApp(config);
         /*/!*Menu-toggle*!/
          jQuery("#menu-toggle").click(function(e) {
          e.preventDefault();
          jQuery("#wrapper").toggleClass("active");
          alert(1);
          });*/
-        var _this = this;
         if (angular2_jwt_1.tokenNotExpired()) {
             console.log("Logged In");
             setTimeout(function () { return _this.goToDashboard(); }, 0);

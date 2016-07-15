@@ -7,6 +7,7 @@ import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import {LandingComponent} from "./landing_component";
 
 declare var Auth0Lock;
+declare var firebase: any;
 
 @Component({
   selector: 'home-cmp',
@@ -26,6 +27,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
+    var config = {
+      apiKey: "AIzaSyB4wQm5C0KbQmCK3aDGPqjWMZxRoS_UD3U",
+      authDomain: "qanda-1370.firebaseapp.com",
+      databaseURL: "https://qanda-1370.firebaseio.com",
+      storageBucket: "qanda-1370.appspot.com",
+    };
+    firebase.initializeApp(config);
     /*/!*Menu-toggle*!/
      jQuery("#menu-toggle").click(function(e) {
      e.preventDefault();

@@ -3,6 +3,11 @@ import {CORE_DIRECTIVES} from '@angular/common'
 import {HomeComponent} from "../../home/components/home.component";
 import {DashboardService} from "../services/dashboard.service";
 import {User} from "../../models/user";
+import {Lecture} from "../../models/lecture";
+import {ClassListComponent} from "../../class_list/components/class-list.component";
+import {ClassInputComponent} from "../../class_input/components/class-input.component";
+import {AboutComponent} from "../../about/components/about.component";
+
 
 declare var DZ: any;
 declare var firebase: any;
@@ -12,23 +17,20 @@ declare var firebase: any;
   templateUrl: 'dashboard/templates/dashboard.html',
   styleUrls: ['dashboard/styles/todo.scss'],
   providers: [DashboardService],
-  directives: [CORE_DIRECTIVES]
+  directives: [CORE_DIRECTIVES, ClassListComponent]
 })
 
 export class DashboardComponent implements OnInit {
 
   userLoggedIn = true;
+
   user: User;
+  classes: Lecture[];
 
   constructor(@Inject(forwardRef(() => HomeComponent)) private _parent:HomeComponent,
               private ref: ChangeDetectorRef, private _dashboardService: DashboardService) {
-    var config = {
-      apiKey: "AIzaSyB4wQm5C0KbQmCK3aDGPqjWMZxRoS_UD3U",
-      authDomain: "qanda-1370.firebaseapp.com",
-      databaseURL: "https://qanda-1370.firebaseio.com",
-      storageBucket: "qanda-1370.appspot.com",
-    };
-    firebase.initializeApp(config);
+
+    this.classes = [];
   }
 
   ngOnInit(){
@@ -38,7 +40,7 @@ export class DashboardComponent implements OnInit {
     this.initializeUser('anyone');
     // get user details from firebase
 
-    // if not null get user classes using list of ids
+
   }
 
   refresh(){
@@ -58,13 +60,25 @@ export class DashboardComponent implements OnInit {
     firebase.database().ref('users/'+id).on('value', function(snapshot){
       if(snapshot.val() != null){
         this.user = this._dashboardService.userFromJSON(snapshot.val()) ;
-
-        // update classes
-
       }
       else{
         var newUser: User = new User(id,[''],[''],[''],'','');
         this._dashboardService.createNewUser(newUser);
+      }
+    }.bind(this));
+  }
+
+  /**
+   * Gets the classes current user is currently subscribed to.
+   * @param user
+     */
+  getClasses(user: User){
+    firebase.database().ref('classes/'+user.userid).on('value', function(snapshot){
+      if(snapshot.val() != null){
+        this.classes = [];
+      }
+      else{
+        console.log(snapshot.val());
       }
     }.bind(this));
   }

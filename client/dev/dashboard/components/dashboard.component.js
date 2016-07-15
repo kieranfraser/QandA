@@ -16,25 +16,19 @@ var common_1 = require('@angular/common');
 var home_component_1 = require("../../home/components/home.component");
 var dashboard_service_1 = require("../services/dashboard.service");
 var user_1 = require("../../models/user");
+var class_list_component_1 = require("../../class_list/components/class-list.component");
 var DashboardComponent = (function () {
     function DashboardComponent(_parent, ref, _dashboardService) {
         this._parent = _parent;
         this.ref = ref;
         this._dashboardService = _dashboardService;
         this.userLoggedIn = true;
-        var config = {
-            apiKey: "AIzaSyB4wQm5C0KbQmCK3aDGPqjWMZxRoS_UD3U",
-            authDomain: "qanda-1370.firebaseapp.com",
-            databaseURL: "https://qanda-1370.firebaseio.com",
-            storageBucket: "qanda-1370.appspot.com",
-        };
-        firebase.initializeApp(config);
+        this.classes = [];
     }
     DashboardComponent.prototype.ngOnInit = function () {
         this.userLoggedIn = this._parent.userLoggedIn;
         this.initializeUser('anyone');
         // get user details from firebase
-        // if not null get user classes using list of ids
     };
     DashboardComponent.prototype.refresh = function () {
         this.ref.detectChanges();
@@ -58,13 +52,27 @@ var DashboardComponent = (function () {
             }
         }.bind(this));
     };
+    /**
+     * Gets the classes current user is currently subscribed to.
+     * @param user
+       */
+    DashboardComponent.prototype.getClasses = function (user) {
+        firebase.database().ref('classes/' + user.userid).on('value', function (snapshot) {
+            if (snapshot.val() != null) {
+                this.classes = [];
+            }
+            else {
+                console.log(snapshot.val());
+            }
+        }.bind(this));
+    };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'dashboard-cmp',
             templateUrl: 'dashboard/templates/dashboard.html',
             styleUrls: ['dashboard/styles/todo.scss'],
             providers: [dashboard_service_1.DashboardService],
-            directives: [common_1.CORE_DIRECTIVES]
+            directives: [common_1.CORE_DIRECTIVES, class_list_component_1.ClassListComponent]
         }),
         __param(0, core_1.Inject(core_1.forwardRef(function () { return home_component_1.HomeComponent; }))), 
         __metadata('design:paramtypes', [home_component_1.HomeComponent, core_1.ChangeDetectorRef, dashboard_service_1.DashboardService])

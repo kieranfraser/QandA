@@ -7,7 +7,8 @@ System.config({
     },
     map: {
       "rxjs": "./rxjs",
-      "angular2-jwt": "./angular2-jwt/angular2-jwt"
+      "angular2-jwt": "./angular2-jwt/angular2-jwt",
+      "moment": "./moment/moment.js"
     },
     packages: {
       '@angular/common': {
@@ -17,6 +18,9 @@ System.config({
         main: 'index'
       },
       '@angular/core': {
+        main: 'index'
+      },
+      '@angular/forms': {
         main: 'index'
       },
       '@angular/http': {

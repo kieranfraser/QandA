@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {User} from "../../models/user";
+import {Lecture} from "../../models/lecture";
 
 declare var firebase: any;
 
@@ -11,7 +12,7 @@ export class DashboardService {
   }
 
   /**
-   * Create a new user (on first log-in with deezer account
+   * Create a new user
    * @param value
    */
   public createNewUser(user: User){
@@ -33,6 +34,16 @@ export class DashboardService {
       object["anonymous"]
     );
     return user;
+  }
+
+  public lectureFromJSON(object: JSON){
+    var lecture = new Lecture(
+      object["name"],
+      object["participant"],
+      object["questions"],
+      object["tags"]
+    );
+    return lecture;
   }
 
 
