@@ -3,7 +3,7 @@
     <div class="row" style="margin-top: 1%">
       <div class="col-sm-3 col-centered">
         <div class="btn-group">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#classListModal">All Classes</button><!--data-backdrop="static" data-keyboard="false"-->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#allClasses">All Classes</button><!--data-backdrop="static" data-keyboard="false"-->
         </div>
       </div>
       <div class="col-sm-6 col-centered">
@@ -22,14 +22,14 @@
       <div class="col-xs-12 col-md-3">
         <div class = "panel panel-default" style="margin-top: 15px">
           <div class = "panel-body">
-            <!--<div class="btn-group" style="width: 100%; height: 50%;" *ngIf="userClasses.length > 0">
-              <div class="row" style="width: 100%;" *ngFor="let class of classes">
-                <label style="width: 100%; margin-left: 5%; margin-top: 1%; overflow-x: hidden; text-overflow: ellipsis" class="btn btn-primary" *ngIf="class['joined'] === true" [(ngModel)]="selectedClass" (click)="classChange(class)" btnRadio="{{class['class']}}">{{class['class']}}</label>
+            <div class="btn-group" style="width: 100%; height: 50%;" *ngIf="user.classes.length > 0">
+              <div class="row" style="width: 100%;" *ngFor="let class of user.classes">
+                <label style="width: 100%; margin-left: 5%; margin-top: 1%; overflow-x: hidden; text-overflow: ellipsis" class="btn btn-primary" [(ngModel)]="selectedClass" (click)="classChange(class)" btnRadio="{{class}}">{{class}}</label>
               </div>
             </div>
-            <div *ngIf="userClasses.length === 0">
+            <div *ngIf="user.classes.length === 0">
               <h4 style="text-align: justify"><small>You haven't joined any classes yet. Click the "All Classes" button above to join a class and have it added to your class list.</small></h4>
-            </div>-->
+            </div>
           </div>
         </div>
 
@@ -63,9 +63,9 @@
   </div>
 </div>
 <!-- Class List Modal -->
-<div id="classListModal" class="modal fade" role="dialog">
+<div id="allClasses" class="modal fade" role="dialog">
   <div class="modal-dialog modal-sm">
-    <class-list [classes]="classes"></class-list>
+    <class-list [user]="user"></class-list>
   </div>
 </div>
 <!-- Lecturer Authorise Modal -->

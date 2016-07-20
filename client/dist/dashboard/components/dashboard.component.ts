@@ -7,9 +7,9 @@ import {Lecture} from "../../models/lecture";
 import {ClassListComponent} from "../../class_list/components/class-list.component";
 import {ClassInputComponent} from "../../class_input/components/class-input.component";
 import {AboutComponent} from "../../about/components/about.component";
+import {BUTTON_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+import {NgModel} from "@angular/forms";
 
-
-declare var DZ: any;
 declare var firebase: any;
 
 @Component({
@@ -17,7 +17,7 @@ declare var firebase: any;
   templateUrl: 'dashboard/templates/dashboard.html',
   styleUrls: ['dashboard/styles/todo.scss'],
   providers: [DashboardService],
-  directives: [CORE_DIRECTIVES, ClassListComponent]
+  directives: [CORE_DIRECTIVES, ClassListComponent, BUTTON_DIRECTIVES]
 })
 
 export class DashboardComponent implements OnInit {
@@ -25,12 +25,15 @@ export class DashboardComponent implements OnInit {
   userLoggedIn = true;
 
   user: User;
-  classes: Lecture[];
+  classes: String[];
+
+  selectedClass: String;
 
   constructor(@Inject(forwardRef(() => HomeComponent)) private _parent:HomeComponent,
               private ref: ChangeDetectorRef, private _dashboardService: DashboardService) {
 
     this.classes = [];
+    this.user = new User('',[],[],[],'','');
   }
 
   ngOnInit(){
@@ -59,27 +62,19 @@ export class DashboardComponent implements OnInit {
   initializeUser(id){
     firebase.database().ref('users/'+id).on('value', function(snapshot){
       if(snapshot.val() != null){
-        this.user = this._dashboardService.userFromJSON(snapshot.val()) ;
+        this.user = this._dashboardService.userFromJSON(snapshot.val());
+        console.log("changed");
+        console.log(this.user.classes);
+        this.ref.detectChanges();
       }
       else{
-        var newUser: User = new User(id,[''],[''],[''],'','');
+        var newUser: User = new User(id,[],[],[],'','');
         this._dashboardService.createNewUser(newUser);
       }
     }.bind(this));
   }
 
-  /**
-   * Gets the classes current user is currently subscribed to.
-   * @param user
-     */
-  getClasses(user: User){
-    firebase.database().ref('classes/'+user.userid).on('value', function(snapshot){
-      if(snapshot.val() != null){
-        this.classes = [];
-      }
-      else{
-        console.log(snapshot.val());
-      }
-    }.bind(this));
+  classChange(value:string){
+    this.selectedClass = value;
   }
 }
