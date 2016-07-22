@@ -18,6 +18,7 @@ var dashboard_service_1 = require("../services/dashboard.service");
 var user_1 = require("../../models/user");
 var class_list_component_1 = require("../../class_list/components/class-list.component");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
+var lecturer_auth_component_1 = require("./lecturer-auth.component");
 var DashboardComponent = (function () {
     function DashboardComponent(_parent, ref, _dashboardService) {
         this._parent = _parent;
@@ -66,7 +67,7 @@ var DashboardComponent = (function () {
             templateUrl: 'dashboard/templates/dashboard.html',
             styleUrls: ['dashboard/styles/todo.scss'],
             providers: [dashboard_service_1.DashboardService],
-            directives: [common_1.CORE_DIRECTIVES, class_list_component_1.ClassListComponent, ng2_bootstrap_1.BUTTON_DIRECTIVES]
+            directives: [common_1.CORE_DIRECTIVES, class_list_component_1.ClassListComponent, lecturer_auth_component_1.LecturerAuthComponent, ng2_bootstrap_1.BUTTON_DIRECTIVES]
         }),
         __param(0, core_1.Inject(core_1.forwardRef(function () { return home_component_1.HomeComponent; }))), 
         __metadata('design:paramtypes', [home_component_1.HomeComponent, core_1.ChangeDetectorRef, dashboard_service_1.DashboardService])

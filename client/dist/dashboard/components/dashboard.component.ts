@@ -9,6 +9,7 @@ import {ClassInputComponent} from "../../class_input/components/class-input.comp
 import {AboutComponent} from "../../about/components/about.component";
 import {BUTTON_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {NgModel} from "@angular/forms";
+import {LecturerAuthComponent} from "./lecturer-auth.component";
 
 declare var firebase: any;
 
@@ -17,7 +18,7 @@ declare var firebase: any;
   templateUrl: 'dashboard/templates/dashboard.html',
   styleUrls: ['dashboard/styles/todo.scss'],
   providers: [DashboardService],
-  directives: [CORE_DIRECTIVES, ClassListComponent, BUTTON_DIRECTIVES]
+  directives: [CORE_DIRECTIVES, ClassListComponent, LecturerAuthComponent, BUTTON_DIRECTIVES]
 })
 
 export class DashboardComponent implements OnInit {

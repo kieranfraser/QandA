@@ -2,7 +2,8 @@
     <form class="form-basic" (ngSubmit)="addClass()">
         <div class="form-row">
             <label>
-                <input placeholder="Class Name" type="text" [(ngModel)]="className" id="classname" required>
+                <input placeholder="Class Name" type="text" [(ngModel)]="className" id="classname"
+                       name="placeholder" required>
             </label>
         </div>
         <tag-input [tags]="tags"></tag-input>
