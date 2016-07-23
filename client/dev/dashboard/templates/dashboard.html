@@ -12,8 +12,7 @@
       <!-- Optional: clear the XS cols if their content doesn't match in height -->
       <div class="clearfix visible-xs-block"></div>
       <div class="col-sm-3 col-centered">
-        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addClassModal">Add Class</button>&lt;!&ndash;(click)="isCollapsedClass = !isCollapsedClass"-->
-        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#askQuestionModal" *ngIf="selectedClass != ''">Ask Question</button>&lt;!&ndash;(click)="isCollapsedQuestion = !isCollapsedClass"&ndash;&gt;-->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#askQuestionModal" *ngIf="selectedClass != ''">Ask Question</button><!--(click)="isCollapsedQuestion = !isCollapsedClass"-->
       </div>
     </div>
   </div>
@@ -53,11 +52,11 @@
         </div>
       </div>
       <div class="col-xs-12 col-md-9">
-        <!--<question-feed *ngIf="!emptyFeed" [classValue]="selectedClass" [questions]="questions">Loading...</question-feed>-->
-        <!--<h5 *ngIf="emptyFeed && selectedClass != ''"> No questions found. Be the first to start a discussion! </h5>
+        <question-feed-cmp *ngIf="!emptyFeed" [classValue]="selectedClass" [questions]="questions">Loading...</question-feed-cmp>
+        <h5 *ngIf="emptyFeed && selectedClass != ''"> No questions found. Be the first to start a discussion! </h5>
         <div *ngIf="emptyFeed && selectedClass === ''">
           <h5>Welcome to the Dashboard</h5>
-        </div>-->
+        </div>
       </div>
     </div>
   </div>
@@ -74,15 +73,9 @@
     <lecturer-auth-cmp></lecturer-auth-cmp>
   </div>
 </div>
-<!--&lt;!&ndash; Ask Question Modal &ndash;&gt;-->
-<!--<div id="askQuestionModal" class="modal fade" role="dialog">-->
-  <!--<div class="modal-dialog">-->
-    <!--<question-input-form [selectedClass]="selectedClass"></question-input-form>-->
-  <!--</div>-->
-<!--</div>-->
- <!--Add Class Modal -->
-<!--<div id="addClassModal" class="modal fade" role="dialog">-->
-  <!--<div class="modal-dialog">-->
-    <!--<class-input></class-input>-->
-  <!--</div>-->
-<!--</div>-->
+<!-- Ask Question Modal -->
+<div id="askQuestionModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <question-input-cmp [selectedClass]="selectedClass"></question-input-cmp>
+  </div>
+</div>

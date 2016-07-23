@@ -19,6 +19,9 @@ var user_1 = require("../../models/user");
 var class_list_component_1 = require("../../class_list/components/class-list.component");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var lecturer_auth_component_1 = require("./lecturer-auth.component");
+var question_1 = require("../../models/question");
+var question_feed_component_1 = require("../../question-feed/components/question-feed.component");
+var question_input_component_1 = require("../../question-input/components/question-input.component");
 var DashboardComponent = (function () {
     function DashboardComponent(_parent, ref, _dashboardService) {
         this._parent = _parent;
@@ -27,6 +30,8 @@ var DashboardComponent = (function () {
         this.userLoggedIn = true;
         this.classes = [];
         this.user = new user_1.User('', [], [], [], '', '');
+        this.questions = [new question_1.Question("something", "what is it?", "summary", ["choice"], [], "kieran", "date", "type", "anonymous", "username", "picture", ["tag"])];
+        this.emptyFeed = false;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         this.userLoggedIn = this._parent.userLoggedIn;
@@ -60,6 +65,7 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.classChange = function (value) {
         this.selectedClass = value;
+        this.questions = [];
     };
     DashboardComponent = __decorate([
         core_1.Component({
@@ -67,7 +73,8 @@ var DashboardComponent = (function () {
             templateUrl: 'dashboard/templates/dashboard.html',
             styleUrls: ['dashboard/styles/todo.scss'],
             providers: [dashboard_service_1.DashboardService],
-            directives: [common_1.CORE_DIRECTIVES, class_list_component_1.ClassListComponent, lecturer_auth_component_1.LecturerAuthComponent, ng2_bootstrap_1.BUTTON_DIRECTIVES]
+            directives: [common_1.CORE_DIRECTIVES, class_list_component_1.ClassListComponent, lecturer_auth_component_1.LecturerAuthComponent, ng2_bootstrap_1.BUTTON_DIRECTIVES,
+                question_feed_component_1.QuestionFeedComponent, question_input_component_1.QuestionInputComponent]
         }),
         __param(0, core_1.Inject(core_1.forwardRef(function () { return home_component_1.HomeComponent; }))), 
         __metadata('design:paramtypes', [home_component_1.HomeComponent, core_1.ChangeDetectorRef, dashboard_service_1.DashboardService])

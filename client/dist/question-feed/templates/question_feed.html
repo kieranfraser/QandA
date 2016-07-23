@@ -1,0 +1,13 @@
+<div class="container-fluid"><div class="row pad-top pad-bottom"><div><div class="chat-box-div"><div class="chat-box-head"></div><div class="panel-body chat-box-main"><div class="panel panel-default" style="padding: 3%" *ngFor="let question of questions" data-toggle="modal" data-target="#answerModal" (click)="clickedQuestion(question)"><!--style="border-style: outset; border-color: rgba(19, 124, 158, 0.28); border-radius: 20px;--><div class="row"><div class="col-xs-1 col-md-1" *ngIf="question.anonymous === ''"><img class="img-circle" src="{{question.picture}}" alt="{{question.username}}" height="35px" width="35px"></div><div class="col-xs-1 col-md-1" *ngIf="question.anonymous === 'true'"><h5><small>Anon</small></h5></div><div class="col-xs-9 col-md-9"><div class="chat-box-left"><h5 style="text-align: left">{{question.summary}}</h5></div><div class="chat-box-name-left" *ngIf="question.anonymous === ''"><h4 style="text-align: left"><small>- {{question.username}}</small></h4></div><div><ul class="chosen-choices"><li class="search-choice" *ngFor="let tag of question.tags"><span class="tag label label-info"><span>{{tag}}</span></span></li></ul></div></div><div class="col-xs-2 col-md-2"><h5 style="text-align: center"><small>{{question.answers.length}} replies</small></h5></div><button type="button" class="close" aria-label="Close" (click)="deleteQuestion(question)"><span aria-hidden="true">&times;</span></button></div></div></div></div></div></div></div><style type="text/css">@media screen and (min-width: 768px) {
+        .modal-dialog {
+            width: 80%; /* New width for default modal */
+        }
+        .modal-sm {
+            width: 50%; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+            width: 950px; /* New width for large modal */
+        }
+    }</style><!-- Answer Modal --><div id="answerModal" class="modal fade" role="dialog"><div class="modal-dialog"><!--<answer-question [question]="selectedQuestion"></answer-question>--></div></div>

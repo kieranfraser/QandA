@@ -10,6 +10,9 @@ import {AboutComponent} from "../../about/components/about.component";
 import {BUTTON_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {NgModel} from "@angular/forms";
 import {LecturerAuthComponent} from "./lecturer-auth.component";
+import {Question} from "../../models/question";
+import {QuestionFeedComponent} from "../../question-feed/components/question-feed.component";
+import {QuestionInputComponent} from "../../question-input/components/question-input.component";
 
 declare var firebase: any;
 
@@ -18,7 +21,8 @@ declare var firebase: any;
   templateUrl: 'dashboard/templates/dashboard.html',
   styleUrls: ['dashboard/styles/todo.scss'],
   providers: [DashboardService],
-  directives: [CORE_DIRECTIVES, ClassListComponent, LecturerAuthComponent, BUTTON_DIRECTIVES]
+  directives: [CORE_DIRECTIVES, ClassListComponent, LecturerAuthComponent, BUTTON_DIRECTIVES,
+                QuestionFeedComponent, QuestionInputComponent]
 })
 
 export class DashboardComponent implements OnInit {
@@ -28,13 +32,32 @@ export class DashboardComponent implements OnInit {
   user: User;
   classes: String[];
 
-  selectedClass: String;
+  // inputs for question-feed
+  selectedClass: string;
+  questions: Question[];
+
+  // if no questions returned for selected class
+  emptyFeed: boolean;
 
   constructor(@Inject(forwardRef(() => HomeComponent)) private _parent:HomeComponent,
               private ref: ChangeDetectorRef, private _dashboardService: DashboardService) {
 
     this.classes = [];
     this.user = new User('',[],[],[],'','');
+    this.questions = [new Question("something",
+      "what is it?",
+      "summary",
+      ["choice"],
+      [],
+      "kieran",
+      "date",
+      "type",
+      "anonymous",
+      "username",
+      "picture",
+      ["tag"]
+    )];
+    this.emptyFeed = false;
   }
 
   ngOnInit(){
@@ -77,5 +100,6 @@ export class DashboardComponent implements OnInit {
 
   classChange(value:string){
     this.selectedClass = value;
+    this.questions = [];
   }
 }

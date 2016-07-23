@@ -1,0 +1,84 @@
+<!--<link rel='stylesheet' href = '../stylesheets/form-input.css'/>-->
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" style="text-align: center">Question</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-basic" (ngSubmit)="onSubmit()" style="padding-top: 0;padding-bottom: 3%;">
+            <div class="form-row">
+                <label>
+                    <span>Class</span>
+                    <select name="classes" [(ngModel)]="questionModel.classid" required>
+                        <option [value]="selectedClass">{{selectedClass}}</option><!--ng-selected="{{selectedClass}}"-->
+                    </select>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span>Question Summary</span>
+                    <input type="text" name="summary" [(ngModel)]="questionModel.summary" required>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span>Type</span>
+                    <select name="type" [(ngModel)]="questionModel.type" (click)="0">
+                        <option *ngFor="let type of types" [value]="type">{{type}}</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="form-row" *ngIf="questionModel.type === 'Free-text'">
+                <label>
+                    <span>Question</span>
+                    <textarea name="question" [(ngModel)]="questionModel.question" required></textarea>
+                </label>
+            </div>
+
+            <div class="form-row" *ngIf="questionModel.type === 'Multi-choice'">
+                <label>
+                    <span>Choice 1:</span>
+                    <input type="text" name="choice1" [(ngModel)]="choiceOne" required>
+                </label>
+            </div>
+
+            <div class="form-row" *ngIf="questionModel.type === 'Multi-choice'">
+                <label>
+                    <span>Choice 2:</span>
+                    <input type="text" name="choice2" [(ngModel)]="choiceTwo" required>
+                </label>
+            </div>
+
+            <div class="form-row" *ngIf="questionModel.type === 'Multi-choice'">
+                <label>
+                    <span>Choice 3:</span>
+                    <input type="text" name="choice3" [(ngModel)]="choiceThree">
+                </label>
+            </div>
+
+            <div class="form-row" *ngIf="questionModel.type === 'Multi-choice'">
+                <label>
+                    <span>Choice 4:</span>
+                    <input type="text" name="choice4" [(ngModel)]="choiceFour">
+                </label>
+            </div>
+
+            <tag-input [tags]="questionTags"></tag-input>
+
+            <div class="form-row">
+                <label>
+                    <span>Anonymous</span>
+                    <input type="checkbox" name="anonymous" checked [(ngModel)]="questionModel.anonymous">
+                </label>
+            </div>
+
+            <div class="form-row" style="text-align: center;">
+                <button class="btn btn-default" type="submit">Submit Form</button>
+            </div>
+        </form>
+    </div>
+</div>
