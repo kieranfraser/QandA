@@ -17,6 +17,14 @@ var ClassListService = (function () {
         var lecture = new lecture_1.Lecture(object["name"], object["participant"], object["questions"], object["tags"]);
         return lecture;
     };
+    /**
+     * Update the current class list of a user.
+     * @param user
+     * @param classList
+       */
+    ClassListService.prototype.updateUserClassList = function (user, classList) {
+        firebase.database().ref('users/' + user.userid + '/classes').set(classList);
+    };
     ClassListService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])

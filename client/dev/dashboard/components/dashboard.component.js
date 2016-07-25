@@ -19,7 +19,6 @@ var user_1 = require("../../models/user");
 var class_list_component_1 = require("../../class_list/components/class-list.component");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var lecturer_auth_component_1 = require("./lecturer-auth.component");
-var question_1 = require("../../models/question");
 var question_feed_component_1 = require("../../question-feed/components/question-feed.component");
 var question_input_component_1 = require("../../question-input/components/question-input.component");
 var DashboardComponent = (function () {
@@ -30,12 +29,12 @@ var DashboardComponent = (function () {
         this.userLoggedIn = true;
         this.classes = [];
         this.user = new user_1.User('', [], [], [], '', '');
-        this.questions = [new question_1.Question("something", "what is it?", "summary", ["choice"], [], "kieran", "date", "type", "anonymous", "username", "picture", ["tag"])];
+        this.questions = [];
         this.emptyFeed = false;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         this.userLoggedIn = this._parent.userLoggedIn;
-        this.initializeUser('anyone');
+        this.initializeUser(JSON.parse(localStorage.getItem('profile')).user_id);
         // get user details from firebase
     };
     DashboardComponent.prototype.refresh = function () {
@@ -53,8 +52,6 @@ var DashboardComponent = (function () {
         firebase.database().ref('users/' + id).on('value', function (snapshot) {
             if (snapshot.val() != null) {
                 this.user = this._dashboardService.userFromJSON(snapshot.val());
-                console.log("changed");
-                console.log(this.user.classes);
                 this.ref.detectChanges();
             }
             else {

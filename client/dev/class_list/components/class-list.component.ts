@@ -2,12 +2,14 @@
  * Created by kfraser on 13/03/2016.
  */
 import {Component, Inject, forwardRef, OnInit, Input, ChangeDetectorRef, OnDestroy} from '@angular/core';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { CORE_DIRECTIVES } from '@angular/common';
+import {FORM_DIRECTIVES} from '@angular/forms';
 import {ClassInputComponent} from "../../class_input/components/class-input.component";
 import {User} from "../../models/user";
 import {DashboardComponent} from "../../dashboard/components/dashboard.component";
 import {Lecture} from "../../models/lecture";
 import {ClassListService} from "../services/classList.service";
+import {BUTTON_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 
 declare var firebase: any;
 
@@ -15,7 +17,7 @@ declare var firebase: any;
     selector: 'class-list',
     templateUrl: 'class_list/templates/class_list.html',
     providers: [ClassListService],
-    directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES, ClassInputComponent ]
+    directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES, ClassInputComponent, BUTTON_DIRECTIVES ]
 })
 
 /**
@@ -24,13 +26,10 @@ declare var firebase: any;
  */
 export class ClassListComponent implements OnInit, OnDestroy{
 
-    private singleModel:string = '1';
-    private radioModel:string = 'Middle';
-
     public isCollapsedClass:boolean = true;
 
     @Input() user: User;
-    allClasses: Lecture[];
+    classList: any[];
 
     auth: string;
 
@@ -46,43 +45,38 @@ export class ClassListComponent implements OnInit, OnDestroy{
     getClasses(){
       firebase.database().ref('classes').on('value', function(snapshot){
         if(snapshot.val() != null){
-          this.allClasses = [];
+          this.classList = [];
           var jsonObj = snapshot.val();
-          console.log(snapshot.val());
+
           for(var key in jsonObj){
             var lecture = this._classListService.lectureFromJSON(jsonObj[key]);
-            this.allClasses.push(lecture);
+            var joined: boolean = false;
+            if(this.user.classes.indexOf(lecture.name) != -1){
+              lecture.joined = true;
+            }
+            this.classList.push({
+              'name': lecture.name,
+              'joined': joined,
+              'tags': lecture.tags
+            });
           }
-          this.ref.detectChanges();
+          console.log(this.classList);
         }
         else{
-          this.allClasses = [];
+          this.classList = [];
         }
+        this.ref.detectChanges();
       }.bind(this));
     }
 
     save() {
         var joinedList :string[] = [];
-        /*for(var lecture of this.classes){
+        for(var lecture of this.classList){
             if(lecture['joined'] === true){
-                joinedList.push(lecture['class'])
+                joinedList.push(lecture['name']);
             }
         }
-        this.user = new User(JSON.parse(localStorage.getItem('profile')).user_id,
-        joinedList,
-        [],
-        [],
-        "",
-        "");
-
-        var json = JSON.stringify(this.user);*/
-        /*this.httpService.updateUserClasses(json).subscribe(
-            data => console.log(JSON.stringify(data)),
-            error => alert(error),
-            () => console.log("User classes updated")
-        );
-        this._parent.getClassList();
-        this._parent.selectedClass = '';*/
+        this._classListService.updateUserClassList(this.user, joinedList);
     }
 
     refresh(){

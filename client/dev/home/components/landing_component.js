@@ -33,8 +33,8 @@ var LandingComponent = (function () {
                 console.log("There was an error :/", err);
                 return;
             }
-            localStorage.setItem('profile', profile);
-            localStorage.setItem('id_token', id_token);
+            localStorage.setItem('profile', JSON.stringify(profile));
+            localStorage.setItem('id_token', JSON.stringify(id_token));
             this._parent.goToDashboard();
         }.bind(this));
     };

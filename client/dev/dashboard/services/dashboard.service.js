@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var user_1 = require("../../models/user");
-var lecture_1 = require("../../models/lecture");
 var DashboardService = (function () {
     //ToDo: These keys need to be moved to server side
     function DashboardService() {
@@ -28,12 +27,20 @@ var DashboardService = (function () {
      * @param object
        */
     DashboardService.prototype.userFromJSON = function (object) {
-        var user = new user_1.User(object["userid"], object["classes"], object["questions"], object["notifications"], object["auth"], object["anonymous"]);
+        var user = new user_1.User('', [], [], [], '', '');
+        user.userid = object["userid"];
+        if (object["classes"] != null) {
+            user.classes = object["classes"];
+        }
+        if (object["questions"] != null) {
+            user.questions = object["questions"];
+        }
+        if (object["notifications"] != null) {
+            user.notifications = object["notifications"];
+        }
+        user.auth = object["auth"];
+        user.anonymous = object["anonymous"];
         return user;
-    };
-    DashboardService.prototype.lectureFromJSON = function (object) {
-        var lecture = new lecture_1.Lecture(object["name"], object["participant"], object["questions"], object["tags"]);
-        return lecture;
     };
     DashboardService = __decorate([
         core_1.Injectable(), 

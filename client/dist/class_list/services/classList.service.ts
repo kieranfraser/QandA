@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Lecture} from "../../models/lecture";
+import {User} from "../../models/user";
 
 declare var firebase: any;
 
@@ -16,5 +17,14 @@ export class ClassListService {
       object["tags"]
     );
     return lecture;
+  }
+
+  /**
+   * Update the current class list of a user.
+   * @param user
+   * @param classList
+     */
+  public updateUserClassList(user: User, classList: string[]){
+    firebase.database().ref('users/' + user.userid + '/classes').set(classList);
   }
 }

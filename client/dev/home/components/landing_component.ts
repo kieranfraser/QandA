@@ -18,6 +18,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   lock = new Auth0Lock('ZUCNGuYeq1sAevQJNPUjSPKodgP8yBEy', 'qandauth.eu.auth0.com');
 
+
   constructor(private router: Router, private ref: ChangeDetectorRef,
                 @Inject(forwardRef(() => HomeComponent)) private _parent:HomeComponent) {}
 
@@ -33,8 +34,8 @@ export class LandingComponent implements OnInit, OnDestroy {
         console.log("There was an error :/", err);
         return;
       }
-      localStorage.setItem('profile', profile);
-      localStorage.setItem('id_token', id_token);
+      localStorage.setItem('profile', JSON.stringify(profile));
+      localStorage.setItem('id_token', JSON.stringify(id_token));
       this._parent.goToDashboard();
     }.bind(this));
   }

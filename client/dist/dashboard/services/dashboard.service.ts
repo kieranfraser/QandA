@@ -25,26 +25,22 @@ export class DashboardService {
    * @param object
      */
   public userFromJSON(object: JSON){
-    var user = new User(
-      object["userid"],
-      object["classes"],
-      object["questions"],
-      object["notifications"],
-      object["auth"],
-      object["anonymous"]
-    );
+
+    var user = new User('',[],[],[],'','');
+      user.userid = object["userid"];
+      if(object["classes"] != null){
+        user.classes = object["classes"];
+      }
+      if(object["questions"] != null){
+        user.questions = object["questions"];
+      }
+    if(object["notifications"] != null){
+      user.notifications = object["notifications"];
+    }
+      user.auth = object["auth"];
+      user.anonymous = object["anonymous"];
+
     return user;
   }
-
-  public lectureFromJSON(object: JSON){
-    var lecture = new Lecture(
-      object["name"],
-      object["participant"],
-      object["questions"],
-      object["tags"]
-    );
-    return lecture;
-  }
-
 
 }

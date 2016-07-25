@@ -44,19 +44,7 @@ export class DashboardComponent implements OnInit {
 
     this.classes = [];
     this.user = new User('',[],[],[],'','');
-    this.questions = [new Question("something",
-      "what is it?",
-      "summary",
-      ["choice"],
-      [],
-      "kieran",
-      "date",
-      "type",
-      "anonymous",
-      "username",
-      "picture",
-      ["tag"]
-    )];
+    this.questions = [];
     this.emptyFeed = false;
   }
 
@@ -64,10 +52,8 @@ export class DashboardComponent implements OnInit {
 
     this.userLoggedIn = this._parent.userLoggedIn;
 
-    this.initializeUser('anyone');
+    this.initializeUser(JSON.parse(localStorage.getItem('profile')).user_id);
     // get user details from firebase
-
-
   }
 
   refresh(){
@@ -87,8 +73,6 @@ export class DashboardComponent implements OnInit {
     firebase.database().ref('users/'+id).on('value', function(snapshot){
       if(snapshot.val() != null){
         this.user = this._dashboardService.userFromJSON(snapshot.val());
-        console.log("changed");
-        console.log(this.user.classes);
         this.ref.detectChanges();
       }
       else{
