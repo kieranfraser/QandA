@@ -31,6 +31,7 @@ var DashboardComponent = (function () {
         this.user = new user_1.User('', [], [], [], '', '');
         this.questions = [];
         this.emptyFeed = false;
+        this.selectedClass = '';
     }
     DashboardComponent.prototype.ngOnInit = function () {
         this.userLoggedIn = this._parent.userLoggedIn;
@@ -62,7 +63,20 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.classChange = function (value) {
         this.selectedClass = value;
-        this.questions = [];
+        firebase.database().ref('classes/' + value + '/questions').on('value', function (snapshot) {
+            if (snapshot.val() != null) {
+                this.questions = [];
+                console.log("class questions: ", snapshot.val());
+                for (var key in snapshot.val()) {
+                    firebase.database().ref('questions/' + key).once('value').then(function (snapshot) {
+                        var question = this._dashboardService.questionFromJSON(snapshot.val());
+                        this.questions.push(question);
+                        console.log(question);
+                        this.ref.detectChanges();
+                    }.bind(this));
+                }
+            }
+        }.bind(this));
     };
     DashboardComponent = __decorate([
         core_1.Component({

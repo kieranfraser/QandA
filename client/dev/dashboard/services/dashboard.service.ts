@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {User} from "../../models/user";
 import {Lecture} from "../../models/lecture";
+import {Question} from "../../models/question";
 
 declare var firebase: any;
 
@@ -41,6 +42,30 @@ export class DashboardService {
       user.anonymous = object["anonymous"];
 
     return user;
+  }
+
+  public questionFromJSON(object: JSON){
+
+    var question = new Question("","","",[],[],"","","","","","",[]);
+    question.classid = object['classid'];
+    question.question = object['question'];
+    question.summary = object['summary'];
+    question.choices = object['choices'];
+    if(object['answers'] != null){
+      question.answers = object['answers'];
+    }
+    else{
+      question.answers = [];
+    }
+    question.user = object['user'];
+    question.date = object['date'];
+    question.type = object['type'];
+    question.anonymous = object['anonymous'];
+    question.username = object['username'];
+    question.picture = object['picture'];
+    question.tags = object['tags'];
+
+    return question;
   }
 
 }

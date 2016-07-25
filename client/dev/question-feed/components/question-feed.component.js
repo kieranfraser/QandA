@@ -38,7 +38,7 @@ var QuestionFeedComponent = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
-    ], QuestionFeedComponent.prototype, "classNValue", void 0);
+    ], QuestionFeedComponent.prototype, "classValue", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)

@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit {
     this.user = new User('',[],[],[],'','');
     this.questions = [];
     this.emptyFeed = false;
+    this.selectedClass = '';
   }
 
   ngOnInit(){
@@ -84,6 +85,19 @@ export class DashboardComponent implements OnInit {
 
   classChange(value:string){
     this.selectedClass = value;
-    this.questions = [];
+    firebase.database().ref('classes/'+value+ '/questions').on('value', function(snapshot){
+      if(snapshot.val() != null){
+        this.questions = [];
+        console.log("class questions: ",snapshot.val());
+        for(var key in snapshot.val()){
+          firebase.database().ref('questions/' + key).once('value').then(function(snapshot) {
+            var question: Question = this._dashboardService.questionFromJSON(snapshot.val());
+            this.questions.push(question);
+            console.log(question);
+            this.ref.detectChanges();
+          }.bind(this));
+        }
+      }
+    }.bind(this));
   }
 }

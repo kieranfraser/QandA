@@ -5,6 +5,8 @@ import {Component, OnInit, forwardRef, Inject, Input} from '@angular/core';
 import {Question} from "../../models/question";
 import {DashboardComponent} from "../../dashboard/components/dashboard.component";
 
+declare var firebase: any;
+
 @Component({
   selector: 'question-feed-cmp',
   templateUrl: 'question-feed/templates/question_feed.html'
@@ -13,7 +15,7 @@ import {DashboardComponent} from "../../dashboard/components/dashboard.component
 export class QuestionFeedComponent implements OnInit {
 
   // Input from the dashboard component, used to filter the comment feed
-  @Input() classNValue: string;
+  @Input() classValue: string;
   @Input()  questions: Question[];
 
   selectedQuestion: Question;
@@ -26,6 +28,7 @@ export class QuestionFeedComponent implements OnInit {
     console.log("Feed Loaded");
     this.selectedQuestion = new Question("","","",[],[],"","","","", "", "",[]);
     // get the list of questions for the given class
+
   }
 
   clickedQuestion(question: Question){

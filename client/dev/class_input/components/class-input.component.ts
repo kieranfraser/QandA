@@ -16,7 +16,9 @@ declare var firebase: any;
     directives: [TagInputComponent]
 })
 
-
+/**
+ * ToDo: Decide whether pushing a class is better than setting in firebase.
+ */
 export class ClassInputComponent implements OnInit {
 
 
@@ -46,8 +48,9 @@ export class ClassInputComponent implements OnInit {
     addClass(){
       this.newClass = new Lecture(this.className, [], [], this.tags);
 
-      var newClassKey = firebase.database().ref('classes').push().key;
-      firebase.database().ref('classes/' + newClassKey).set(this.newClass);
+      //var newClassKey = firebase.database().ref('classes').push().key;
+      //firebase.database().ref('classes/' + newClassKey).set(this.newClass);
+      firebase.database().ref('classes/' + this.newClass.name).set(this.newClass);
 
       this.className = "";
       this.tags = [];

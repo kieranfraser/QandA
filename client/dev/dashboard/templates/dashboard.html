@@ -54,7 +54,7 @@
       <div class="col-xs-12 col-md-9">
         <question-feed-cmp *ngIf="!emptyFeed" [classValue]="selectedClass" [questions]="questions">Loading...</question-feed-cmp>
         <h5 *ngIf="emptyFeed && selectedClass != ''"> No questions found. Be the first to start a discussion! </h5>
-        <div *ngIf="emptyFeed && selectedClass === ''">
+        <div *ngIf="selectedClass === ''">
           <h5>Welcome to the Dashboard</h5>
         </div>
       </div>
