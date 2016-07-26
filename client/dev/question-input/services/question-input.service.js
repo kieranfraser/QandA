@@ -23,6 +23,7 @@ var QuestionInputService = (function () {
      */
     QuestionInputService.prototype.createNewQuestion = function (question) {
         var key = firebase.database().ref('questions').push().key;
+        question.id = key;
         firebase.database().ref('questions/' + key).set(question);
         firebase.database().ref('users/' + question.user + '/questions/' + key).set(true);
         firebase.database().ref('classes/' + question.classid + '/questions/' + key).set(true);

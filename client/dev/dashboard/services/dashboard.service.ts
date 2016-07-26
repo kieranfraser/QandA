@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {User} from "../../models/user";
 import {Lecture} from "../../models/lecture";
 import {Question} from "../../models/question";
+import {Answer} from "../../models/answer";
 
 declare var firebase: any;
 
@@ -27,7 +28,7 @@ export class DashboardService {
      */
   public userFromJSON(object: JSON){
 
-    var user = new User('',[],[],[],'','');
+    var user = new User('',[],[],[],[],'','');
       user.userid = object["userid"];
       if(object["classes"] != null){
         user.classes = object["classes"];
@@ -46,26 +47,48 @@ export class DashboardService {
 
   public questionFromJSON(object: JSON){
 
-    var question = new Question("","","",[],[],"","","","","","",[]);
-    question.classid = object['classid'];
-    question.question = object['question'];
-    question.summary = object['summary'];
-    question.choices = object['choices'];
-    if(object['answers'] != null){
-      question.answers = object['answers'];
+    var question = new Question("","","","",[],[],"","","","","","",[]);
+    if(object != null){
+      question.id = object['id'];
+      question.classid = object['classid'];
+      question.question = object['question'];
+      question.summary = object['summary'];
+      question.choices = object['choices'];
+
+      var answerArray = object['answers'];
+      if(answerArray != null){
+        console.log("answer array", answerArray);
+        for(var answer in answerArray){
+          console.log(answerArray[answer]);
+          question.answers.push(this.answerFromJSON(answerArray[answer]));
+        }
+      }
+      else{
+        question.answers = [];
+      }
+      question.user = object['user'];
+      question.date = object['date'];
+      question.type = object['type'];
+      question.anonymous = object['anonymous'];
+      question.username = object['username'];
+      question.picture = object['picture'];
+      question.tags = object['tags'];
     }
-    else{
-      question.answers = [];
-    }
-    question.user = object['user'];
-    question.date = object['date'];
-    question.type = object['type'];
-    question.anonymous = object['anonymous'];
-    question.username = object['username'];
-    question.picture = object['picture'];
-    question.tags = object['tags'];
 
     return question;
   }
 
+  public answerFromJSON(object: JSON){
+    var answer = new Answer("","","","","","","");
+    if(object != null){
+      answer.id = object['id'];
+      answer.anonymous = object['anonymous'];
+      answer.answer = object['answer'];
+      answer.date = object['date'];
+      answer.picture = object['picture'];
+      answer.user = object['user'];
+      answer.username = object['username'];
+    }
+    return answer;
+  }
 }

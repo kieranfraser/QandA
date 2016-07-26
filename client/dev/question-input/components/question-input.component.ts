@@ -20,7 +20,9 @@ export class QuestionInputComponent {
 
 
 
-  questionModel = new Question(this.selectedClass,
+  questionModel = new Question(
+    "",
+    this.selectedClass,
     "",
     "",
     [],
@@ -59,7 +61,8 @@ export class QuestionInputComponent {
 
     this._questionInputService.createNewQuestion(this.questionModel)
 
-    this.questionModel = new Question(this.selectedClass,
+    this.questionModel = new Question("",
+      this.selectedClass,
       "",
       "",
       [],

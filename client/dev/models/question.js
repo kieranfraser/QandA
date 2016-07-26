@@ -3,7 +3,8 @@
  * Created by kfraser on 26/02/2016.
  */
 var Question = (function () {
-    function Question(classid, question, summary, choices, answers, user, date, type, anonymous, username, picture, tags) {
+    function Question(id, classid, question, summary, choices, answers, user, date, type, anonymous, username, picture, tags) {
+        this.id = id;
         this.classid = classid;
         this.question = question;
         this.summary = summary;

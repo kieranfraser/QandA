@@ -3,7 +3,8 @@
  */
 "use strict";
 var Answer = (function () {
-    function Answer(answer, user, date, anonymous, username, picture) {
+    function Answer(id, answer, user, date, anonymous, username, picture) {
+        this.id = id;
         this.answer = answer;
         this.user = user;
         this.date = date;

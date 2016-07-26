@@ -1,1 +1,1 @@
-"use strict";var Answer=function(){function s(s,t,e,n,r,i){this.answer=s,this.user=t,this.date=e,this.anonymous=n,this.username=r,this.picture=i}return s}();exports.Answer=Answer;
+"use strict";var Answer=function(){function s(s,t,e,i,n,r,u){this.id=s,this.answer=t,this.user=e,this.date=i,this.anonymous=n,this.username=r,this.picture=u}return s}();exports.Answer=Answer;

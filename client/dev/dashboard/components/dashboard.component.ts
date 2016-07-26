@@ -13,6 +13,8 @@ import {LecturerAuthComponent} from "./lecturer-auth.component";
 import {Question} from "../../models/question";
 import {QuestionFeedComponent} from "../../question-feed/components/question-feed.component";
 import {QuestionInputComponent} from "../../question-input/components/question-input.component";
+import {AnswerComponent} from "../../question-feed/components/answer.component";
+import {AnswerInputComponent} from "../../question-feed/components/answer-input.component";
 
 declare var firebase: any;
 
@@ -22,7 +24,7 @@ declare var firebase: any;
   styleUrls: ['dashboard/styles/todo.scss'],
   providers: [DashboardService],
   directives: [CORE_DIRECTIVES, ClassListComponent, LecturerAuthComponent, BUTTON_DIRECTIVES,
-                QuestionFeedComponent, QuestionInputComponent]
+                QuestionFeedComponent, AnswerComponent, QuestionInputComponent, AnswerInputComponent]
 })
 
 export class DashboardComponent implements OnInit {
@@ -43,7 +45,7 @@ export class DashboardComponent implements OnInit {
               private ref: ChangeDetectorRef, private _dashboardService: DashboardService) {
 
     this.classes = [];
-    this.user = new User('',[],[],[],'','');
+    this.user = new User('',[],[], [],[],'','');
     this.questions = [];
     this.emptyFeed = false;
     this.selectedClass = '';
@@ -74,30 +76,45 @@ export class DashboardComponent implements OnInit {
     firebase.database().ref('users/'+id).on('value', function(snapshot){
       if(snapshot.val() != null){
         this.user = this._dashboardService.userFromJSON(snapshot.val());
+        this.classes = this.user.classes;
         this.ref.detectChanges();
       }
       else{
-        var newUser: User = new User(id,[],[],[],'','');
+        var newUser: User = new User(id,[],[],[],[],'','');
+        this.user = newUser;
         this._dashboardService.createNewUser(newUser);
       }
     }.bind(this));
   }
 
+  checkQuestionInArray(question) {
+    return question.id == this;
+  }
+
   classChange(value:string){
     this.selectedClass = value;
-    firebase.database().ref('classes/'+value+ '/questions').on('value', function(snapshot){
+    firebase.database().ref('classes/' +value+ '/questions').on('value', function(snapshot){
+      console.log("Dash", "class");
       if(snapshot.val() != null){
         this.questions = [];
-        console.log("class questions: ",snapshot.val());
         for(var key in snapshot.val()){
-          firebase.database().ref('questions/' + key).once('value').then(function(snapshot) {
+          firebase.database().ref('questions/' + key).on('value', function(snapshot) {
+            console.log("Dash", "question");
             var question: Question = this._dashboardService.questionFromJSON(snapshot.val());
+            var questionIndex = this.questions.findIndex(this.checkQuestionInArray, question.id);
+            if(questionIndex > -1){
+              this.questions.splice(questionIndex,1);
+            }
             this.questions.push(question);
-            console.log(question);
             this.ref.detectChanges();
           }.bind(this));
         }
       }
     }.bind(this));
   }
+
+  updateQuestions(){
+
+  }
+
 }

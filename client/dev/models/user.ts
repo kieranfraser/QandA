@@ -6,6 +6,7 @@ export class User {
     public userid: string,
     public classes: string[],
     public questions: string[],
+    public answers: string[],
     public notifications: string[],
     public auth: string,
     public anonymous: string
