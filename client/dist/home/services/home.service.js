@@ -1,1 +1,36 @@
-"use strict";var __decorate=this&&this.__decorate||function(e,t,r,a){var n,o=arguments.length,c=o<3?t:null===a?a=Object.getOwnPropertyDescriptor(t,r):a;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)c=Reflect.decorate(e,t,r,a);else for(var i=e.length-1;i>=0;i--)(n=e[i])&&(c=(o<3?n(c):o>3?n(t,r,c):n(t,r))||c);return o>3&&c&&Object.defineProperty(t,r,c),c},__metadata=this&&this.__metadata||function(e,t){if("object"==typeof Reflect&&"function"==typeof Reflect.metadata)return Reflect.metadata(e,t)},core_1=require("@angular/core"),http_1=require("@angular/http");require("rxjs/add/operator/map");var HomeService=function(){function e(e){this.http=e}return e.prototype.getUser=function(e){var t="?userid="+e;return this.http.get("/api/getUser"+t).map(function(e){return e.json()})},e.prototype.createUser=function(e){var t=new http_1.Headers;return t.append("Content-Type","application/json"),this.http.post("/api/createUser",e,{headers:t}).map(function(e){return e.json()})},e=__decorate([core_1.Injectable(),__metadata("design:paramtypes",[http_1.Http])],e)}();exports.HomeService=HomeService;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var http_1 = require('@angular/http');
+require('rxjs/add/operator/map');
+var HomeService = (function () {
+    function HomeService(http) {
+        this.http = http;
+    }
+    HomeService.prototype.getUser = function (userId) {
+        var queryString = '?userid=' + userId;
+        return this.http.get('/api/getUser' + queryString)
+            .map(function (res) { return res.json(); });
+    };
+    HomeService.prototype.createUser = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('/api/createUser', json, {
+            headers: headers
+        }).map(function (res) { return res.json(); });
+    };
+    HomeService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], HomeService);
+    return HomeService;
+}());
+exports.HomeService = HomeService;

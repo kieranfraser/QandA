@@ -1,1 +1,78 @@
-"use strict";var __decorate=this&&this.__decorate||function(e,t,o,r){var n,a=arguments.length,i=a<3?t:null===r?r=Object.getOwnPropertyDescriptor(t,o):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(e,t,o,r);else for(var s=e.length-1;s>=0;s--)(n=e[s])&&(i=(a<3?n(i):a>3?n(t,o,i):n(t,o))||i);return a>3&&i&&Object.defineProperty(t,o,i),i},__metadata=this&&this.__metadata||function(e,t){if("object"==typeof Reflect&&"function"==typeof Reflect.metadata)return Reflect.metadata(e,t)},core_1=require("@angular/core"),router_1=require("@angular/router"),home_service_1=require("../services/home.service"),angular2_jwt_1=require("angular2-jwt"),HomeComponent=function(){function e(e,t,o){this._homeService=e,this.router=t,this.zone=o,this.userLoggedIn=!1}return e.prototype.ngOnInit=function(){var e=this,t={apiKey:"AIzaSyB4wQm5C0KbQmCK3aDGPqjWMZxRoS_UD3U",authDomain:"qanda-1370.firebaseapp.com",databaseURL:"https://qanda-1370.firebaseio.com",storageBucket:"qanda-1370.appspot.com"};firebase.initializeApp(t),angular2_jwt_1.tokenNotExpired()&&(console.log("Logged In"),setTimeout(function(){return e.goToDashboard()},0))},e.prototype.ngAfterViewInit=function(){},e.prototype.goToDashboard=function(){var e=this;this.userLoggedIn=!0,this.zone.run(function(){return e.router.navigate(["/dashboard"])})},e.prototype.logout=function(){var e=this;console.log("User has logged out. Redirect to landing page."),localStorage.removeItem("profile"),localStorage.removeItem("id_token"),this.userLoggedIn=!1,this.zone.run(function(){return e.router.navigate(["/home"])})},e.prototype.click=function(){var e=this;this.zone.run(function(){return e.router.navigate(["/dashboard"])})},e=__decorate([core_1.Component({selector:"home-cmp",templateUrl:"home/templates/home.html",styleUrls:["home/styles/home.scss"],providers:[home_service_1.HomeService],directives:[router_1.ROUTER_DIRECTIVES]}),__metadata("design:paramtypes",[home_service_1.HomeService,router_1.Router,core_1.NgZone])],e)}();exports.HomeComponent=HomeComponent;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('@angular/core');
+var router_1 = require("@angular/router");
+var home_service_1 = require("../services/home.service");
+var angular2_jwt_1 = require('angular2-jwt');
+var HomeComponent = (function () {
+    function HomeComponent(_homeService, router, zone) {
+        this._homeService = _homeService;
+        this.router = router;
+        this.zone = zone;
+        this.userLoggedIn = false;
+    }
+    HomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var config = {
+            apiKey: "AIzaSyB4wQm5C0KbQmCK3aDGPqjWMZxRoS_UD3U",
+            authDomain: "qanda-1370.firebaseapp.com",
+            databaseURL: "https://qanda-1370.firebaseio.com",
+            storageBucket: "qanda-1370.appspot.com",
+        };
+        firebase.initializeApp(config);
+        /*/!*Menu-toggle*!/
+         jQuery("#menu-toggle").click(function(e) {
+         e.preventDefault();
+         jQuery("#wrapper").toggleClass("active");
+         alert(1);
+         });*/
+        if (angular2_jwt_1.tokenNotExpired()) {
+            console.log("Logged In");
+            setTimeout(function () { return _this.goToDashboard(); }, 0);
+        }
+    };
+    HomeComponent.prototype.ngAfterViewInit = function () {
+    };
+    HomeComponent.prototype.goToDashboard = function () {
+        var _this = this;
+        this.userLoggedIn = true;
+        this.zone.run(function () { return _this.router.navigate(['/dashboard']); });
+    };
+    /**
+     * Function fired when the logout button is pressed. Deletes the user's JWT
+     * and profile from local storage, sets the logged in boolean as false so the
+     * login button is redisplayed and redirects to the landing page of the site.
+     */
+    HomeComponent.prototype.logout = function () {
+        var _this = this;
+        console.log('User has logged out. Redirect to landing page.');
+        localStorage.removeItem('profile');
+        localStorage.removeItem('id_token');
+        this.userLoggedIn = false;
+        this.zone.run(function () { return _this.router.navigate(['/home']); });
+    };
+    HomeComponent.prototype.click = function () {
+        var _this = this;
+        this.zone.run(function () { return _this.router.navigate(['/dashboard']); });
+    };
+    HomeComponent = __decorate([
+        core_1.Component({
+            selector: 'home-cmp',
+            templateUrl: 'home/templates/home.html',
+            styleUrls: ['home/styles/home.scss'],
+            providers: [home_service_1.HomeService],
+            directives: [router_1.ROUTER_DIRECTIVES]
+        }), 
+        __metadata('design:paramtypes', [home_service_1.HomeService, router_1.Router, core_1.NgZone])
+    ], HomeComponent);
+    return HomeComponent;
+}());
+exports.HomeComponent = HomeComponent;

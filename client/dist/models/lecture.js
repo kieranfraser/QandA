@@ -1,1 +1,14 @@
-"use strict";var Lecture=function(){function t(t,e,s,i){this.name=t,this.participants=e,this.questions=s,this.tags=i}return t}();exports.Lecture=Lecture;
+"use strict";
+/**
+ * Created by kfraser on 27/02/2016.
+ */
+var Lecture = (function () {
+    function Lecture(name, participants, questions, tags) {
+        this.name = name;
+        this.participants = participants;
+        this.questions = questions;
+        this.tags = tags;
+    }
+    return Lecture;
+}());
+exports.Lecture = Lecture;

@@ -1,1 +1,73 @@
-"use strict";var __decorate=this&&this.__decorate||function(e,t,s,r){var a,n=arguments.length,o=n<3?t:null===r?r=Object.getOwnPropertyDescriptor(t,s):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,s,r);else for(var u=e.length-1;u>=0;u--)(a=e[u])&&(o=(n<3?a(o):n>3?a(t,s,o):a(t,s))||o);return n>3&&o&&Object.defineProperty(t,s,o),o},__metadata=this&&this.__metadata||function(e,t){if("object"==typeof Reflect&&"function"==typeof Reflect.metadata)return Reflect.metadata(e,t)},core_1=require("@angular/core"),user_1=require("../../models/user"),question_1=require("../../models/question"),DashboardService=function(){function e(){}return e.prototype.createNewUser=function(e){firebase.database().ref("users/"+e.userid).set(e)},e.prototype.userFromJSON=function(e){var t=new user_1.User("",[],[],[],"","");return t.userid=e.userid,null!=e.classes&&(t.classes=e.classes),null!=e.questions&&(t.questions=e.questions),null!=e.notifications&&(t.notifications=e.notifications),t.auth=e.auth,t.anonymous=e.anonymous,t},e.prototype.questionFromJSON=function(e){var t=new question_1.Question("","","",[],[],"","","","","","",[]);return t.classid=e.classid,t.question=e.question,t.summary=e.summary,t.choices=e.choices,null!=e.answers?t.answers=e.answers:t.answers=[],t.user=e.user,t.date=e.date,t.type=e.type,t.anonymous=e.anonymous,t.username=e.username,t.picture=e.picture,t.tags=e.tags,t},e=__decorate([core_1.Injectable(),__metadata("design:paramtypes",[])],e)}();exports.DashboardService=DashboardService;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var user_1 = require("../../models/user");
+var question_1 = require("../../models/question");
+var DashboardService = (function () {
+    //ToDo: These keys need to be moved to server side
+    function DashboardService() {
+    }
+    /**
+     * Create a new user
+     * @param value
+     */
+    DashboardService.prototype.createNewUser = function (user) {
+        firebase.database().ref('users/' + user.userid).set(user);
+    };
+    /**
+     * Helper function to create a new user from a JSON object
+     * (such as the snapshot.val() returned from firebase.
+     * @param object
+       */
+    DashboardService.prototype.userFromJSON = function (object) {
+        var user = new user_1.User('', [], [], [], '', '');
+        user.userid = object["userid"];
+        if (object["classes"] != null) {
+            user.classes = object["classes"];
+        }
+        if (object["questions"] != null) {
+            user.questions = object["questions"];
+        }
+        if (object["notifications"] != null) {
+            user.notifications = object["notifications"];
+        }
+        user.auth = object["auth"];
+        user.anonymous = object["anonymous"];
+        return user;
+    };
+    DashboardService.prototype.questionFromJSON = function (object) {
+        var question = new question_1.Question("", "", "", [], [], "", "", "", "", "", "", []);
+        question.classid = object['classid'];
+        question.question = object['question'];
+        question.summary = object['summary'];
+        question.choices = object['choices'];
+        if (object['answers'] != null) {
+            question.answers = object['answers'];
+        }
+        else {
+            question.answers = [];
+        }
+        question.user = object['user'];
+        question.date = object['date'];
+        question.type = object['type'];
+        question.anonymous = object['anonymous'];
+        question.username = object['username'];
+        question.picture = object['picture'];
+        question.tags = object['tags'];
+        return question;
+    };
+    DashboardService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], DashboardService);
+    return DashboardService;
+}());
+exports.DashboardService = DashboardService;

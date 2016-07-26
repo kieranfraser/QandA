@@ -1,1 +1,36 @@
-"use strict";var __decorate=this&&this.__decorate||function(e,t,a,r){var s,n=arguments.length,o=n<3?t:null===r?r=Object.getOwnPropertyDescriptor(t,a):r;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,a,r);else for(var c=e.length-1;c>=0;c--)(s=e[c])&&(o=(n<3?s(o):n>3?s(t,a,o):s(t,a))||o);return n>3&&o&&Object.defineProperty(t,a,o),o},__metadata=this&&this.__metadata||function(e,t){if("object"==typeof Reflect&&"function"==typeof Reflect.metadata)return Reflect.metadata(e,t)},core_1=require("@angular/core"),QuestionInputService=function(){function e(){}return e.prototype.createNewQuestion=function(e){var t=firebase.database().ref("questions").push().key;firebase.database().ref("questions/"+t).set(e),firebase.database().ref("users/"+e.user+"/questions/"+t).set(!0),firebase.database().ref("classes/"+e.classid+"/questions/"+t).set(!0)},e=__decorate([core_1.Injectable(),__metadata("design:paramtypes",[])],e)}();exports.QuestionInputService=QuestionInputService;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var QuestionInputService = (function () {
+    //ToDo: These keys need to be moved to server side
+    function QuestionInputService() {
+    }
+    /**
+     * Create a new question by a given user for a given class.
+     * Must update the following:
+     * 1. question node - holds all the question detail
+     * 2. user node - holds the key as reference to the question
+     * 3. class node - holds the key as reference to the question
+     * @param value
+     */
+    QuestionInputService.prototype.createNewQuestion = function (question) {
+        var key = firebase.database().ref('questions').push().key;
+        firebase.database().ref('questions/' + key).set(question);
+        firebase.database().ref('users/' + question.user + '/questions/' + key).set(true);
+        firebase.database().ref('classes/' + question.classid + '/questions/' + key).set(true);
+    };
+    QuestionInputService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], QuestionInputService);
+    return QuestionInputService;
+}());
+exports.QuestionInputService = QuestionInputService;

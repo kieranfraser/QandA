@@ -1,1 +1,95 @@
-"use strict";var __decorate=this&&this.__decorate||function(e,t,o,s){var n,r=arguments.length,a=r<3?t:null===s?s=Object.getOwnPropertyDescriptor(t,o):s;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)a=Reflect.decorate(e,t,o,s);else for(var i=e.length-1;i>=0;i--)(n=e[i])&&(a=(r<3?n(a):r>3?n(t,o,a):n(t,o))||a);return r>3&&a&&Object.defineProperty(t,o,a),a},__metadata=this&&this.__metadata||function(e,t){if("object"==typeof Reflect&&"function"==typeof Reflect.metadata)return Reflect.metadata(e,t)},__param=this&&this.__param||function(e,t){return function(o,s){t(o,s,e)}},core_1=require("@angular/core"),common_1=require("@angular/common"),home_component_1=require("../../home/components/home.component"),dashboard_service_1=require("../services/dashboard.service"),user_1=require("../../models/user"),class_list_component_1=require("../../class_list/components/class-list.component"),ng2_bootstrap_1=require("ng2-bootstrap/ng2-bootstrap"),lecturer_auth_component_1=require("./lecturer-auth.component"),question_feed_component_1=require("../../question-feed/components/question-feed.component"),question_input_component_1=require("../../question-input/components/question-input.component"),DashboardComponent=function(){function e(e,t,o){this._parent=e,this.ref=t,this._dashboardService=o,this.userLoggedIn=!0,this.classes=[],this.user=new user_1.User("",[],[],[],"",""),this.questions=[],this.emptyFeed=!1,this.selectedClass=""}return e.prototype.ngOnInit=function(){this.userLoggedIn=this._parent.userLoggedIn,this.initializeUser(JSON.parse(localStorage.getItem("profile")).user_id)},e.prototype.refresh=function(){this.ref.detectChanges()},e.prototype.ngOnDestroy=function(){this.ref.detach()},e.prototype.initializeUser=function(e){firebase.database().ref("users/"+e).on("value",function(t){if(null!=t.val())this.user=this._dashboardService.userFromJSON(t.val()),this.ref.detectChanges();else{var o=new user_1.User(e,[],[],[],"","");this._dashboardService.createNewUser(o)}}.bind(this))},e.prototype.classChange=function(e){this.selectedClass=e,firebase.database().ref("classes/"+e+"/questions").on("value",function(e){if(null!=e.val()){this.questions=[],console.log("class questions: ",e.val());for(var t in e.val())firebase.database().ref("questions/"+t).once("value").then(function(e){var t=this._dashboardService.questionFromJSON(e.val());this.questions.push(t),console.log(t),this.ref.detectChanges()}.bind(this))}}.bind(this))},e=__decorate([core_1.Component({selector:"dashboard-cmp",templateUrl:"dashboard/templates/dashboard.html",styleUrls:["dashboard/styles/todo.scss"],providers:[dashboard_service_1.DashboardService],directives:[common_1.CORE_DIRECTIVES,class_list_component_1.ClassListComponent,lecturer_auth_component_1.LecturerAuthComponent,ng2_bootstrap_1.BUTTON_DIRECTIVES,question_feed_component_1.QuestionFeedComponent,question_input_component_1.QuestionInputComponent]}),__param(0,core_1.Inject(core_1.forwardRef(function(){return home_component_1.HomeComponent}))),__metadata("design:paramtypes",[home_component_1.HomeComponent,core_1.ChangeDetectorRef,dashboard_service_1.DashboardService])],e)}();exports.DashboardComponent=DashboardComponent;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var core_1 = require('@angular/core');
+var common_1 = require('@angular/common');
+var home_component_1 = require("../../home/components/home.component");
+var dashboard_service_1 = require("../services/dashboard.service");
+var user_1 = require("../../models/user");
+var class_list_component_1 = require("../../class_list/components/class-list.component");
+var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
+var lecturer_auth_component_1 = require("./lecturer-auth.component");
+var question_feed_component_1 = require("../../question-feed/components/question-feed.component");
+var question_input_component_1 = require("../../question-input/components/question-input.component");
+var DashboardComponent = (function () {
+    function DashboardComponent(_parent, ref, _dashboardService) {
+        this._parent = _parent;
+        this.ref = ref;
+        this._dashboardService = _dashboardService;
+        this.userLoggedIn = true;
+        this.classes = [];
+        this.user = new user_1.User('', [], [], [], '', '');
+        this.questions = [];
+        this.emptyFeed = false;
+        this.selectedClass = '';
+    }
+    DashboardComponent.prototype.ngOnInit = function () {
+        this.userLoggedIn = this._parent.userLoggedIn;
+        this.initializeUser(JSON.parse(localStorage.getItem('profile')).user_id);
+        // get user details from firebase
+    };
+    DashboardComponent.prototype.refresh = function () {
+        this.ref.detectChanges();
+    };
+    DashboardComponent.prototype.ngOnDestroy = function () {
+        this.ref.detach();
+    };
+    /**
+     * Gets the user from our database
+     * - if new user creates user
+     * @param id
+       */
+    DashboardComponent.prototype.initializeUser = function (id) {
+        firebase.database().ref('users/' + id).on('value', function (snapshot) {
+            if (snapshot.val() != null) {
+                this.user = this._dashboardService.userFromJSON(snapshot.val());
+                this.ref.detectChanges();
+            }
+            else {
+                var newUser = new user_1.User(id, [], [], [], '', '');
+                this._dashboardService.createNewUser(newUser);
+            }
+        }.bind(this));
+    };
+    DashboardComponent.prototype.classChange = function (value) {
+        this.selectedClass = value;
+        firebase.database().ref('classes/' + value + '/questions').on('value', function (snapshot) {
+            if (snapshot.val() != null) {
+                this.questions = [];
+                console.log("class questions: ", snapshot.val());
+                for (var key in snapshot.val()) {
+                    firebase.database().ref('questions/' + key).once('value').then(function (snapshot) {
+                        var question = this._dashboardService.questionFromJSON(snapshot.val());
+                        this.questions.push(question);
+                        console.log(question);
+                        this.ref.detectChanges();
+                    }.bind(this));
+                }
+            }
+        }.bind(this));
+    };
+    DashboardComponent = __decorate([
+        core_1.Component({
+            selector: 'dashboard-cmp',
+            templateUrl: 'dashboard/templates/dashboard.html',
+            styleUrls: ['dashboard/styles/todo.scss'],
+            providers: [dashboard_service_1.DashboardService],
+            directives: [common_1.CORE_DIRECTIVES, class_list_component_1.ClassListComponent, lecturer_auth_component_1.LecturerAuthComponent, ng2_bootstrap_1.BUTTON_DIRECTIVES,
+                question_feed_component_1.QuestionFeedComponent, question_input_component_1.QuestionInputComponent]
+        }),
+        __param(0, core_1.Inject(core_1.forwardRef(function () { return home_component_1.HomeComponent; }))), 
+        __metadata('design:paramtypes', [home_component_1.HomeComponent, core_1.ChangeDetectorRef, dashboard_service_1.DashboardService])
+    ], DashboardComponent);
+    return DashboardComponent;
+}());
+exports.DashboardComponent = DashboardComponent;

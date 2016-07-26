@@ -1,1 +1,34 @@
-"use strict";var __decorate=this&&this.__decorate||function(e,t,r,a){var c,s=arguments.length,o=s<3?t:null===a?a=Object.getOwnPropertyDescriptor(t,r):a;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,r,a);else for(var i=e.length-1;i>=0;i--)(c=e[i])&&(o=(s<3?c(o):s>3?c(t,r,o):c(t,r))||o);return s>3&&o&&Object.defineProperty(t,r,o),o},__metadata=this&&this.__metadata||function(e,t){if("object"==typeof Reflect&&"function"==typeof Reflect.metadata)return Reflect.metadata(e,t)},core_1=require("@angular/core"),lecture_1=require("../../models/lecture"),ClassListService=function(){function e(){}return e.prototype.lectureFromJSON=function(e){var t=new lecture_1.Lecture(e.name,e.participant,e.questions,e.tags);return t},e.prototype.updateUserClassList=function(e,t){firebase.database().ref("users/"+e.userid+"/classes").set(t)},e=__decorate([core_1.Injectable(),__metadata("design:paramtypes",[])],e)}();exports.ClassListService=ClassListService;
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var lecture_1 = require("../../models/lecture");
+var ClassListService = (function () {
+    function ClassListService() {
+    }
+    ClassListService.prototype.lectureFromJSON = function (object) {
+        var lecture = new lecture_1.Lecture(object["name"], object["participant"], object["questions"], object["tags"]);
+        return lecture;
+    };
+    /**
+     * Update the current class list of a user.
+     * @param user
+     * @param classList
+       */
+    ClassListService.prototype.updateUserClassList = function (user, classList) {
+        firebase.database().ref('users/' + user.userid + '/classes').set(classList);
+    };
+    ClassListService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], ClassListService);
+    return ClassListService;
+}());
+exports.ClassListService = ClassListService;

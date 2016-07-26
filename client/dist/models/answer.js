@@ -1,1 +1,16 @@
-"use strict";var Answer=function(){function s(s,t,e,n,r,i){this.answer=s,this.user=t,this.date=e,this.anonymous=n,this.username=r,this.picture=i}return s}();exports.Answer=Answer;
+/**
+ * Created by kfraser on 01/03/2016.
+ */
+"use strict";
+var Answer = (function () {
+    function Answer(answer, user, date, anonymous, username, picture) {
+        this.answer = answer;
+        this.user = user;
+        this.date = date;
+        this.anonymous = anonymous;
+        this.username = username;
+        this.picture = picture;
+    }
+    return Answer;
+}());
+exports.Answer = Answer;
