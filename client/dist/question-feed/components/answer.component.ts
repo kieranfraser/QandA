@@ -4,6 +4,7 @@ import {QuestionFeedComponent} from "./question-feed.component";
 import {QuestionFeedService} from "../services/questionfeed.service";
 import {CollapseDirective} from "ng2-bootstrap/ng2-bootstrap"
 import {AnswerInputComponent} from "./answer-input.component";
+import {DonutComponent} from "../../graphs/components/donut.component";
 
 declare var firebase: any;
 
@@ -11,7 +12,7 @@ declare var firebase: any;
   selector: 'answer-cmp',
   templateUrl: 'question-feed/templates/answer.html',
   providers: [QuestionFeedService],
-  directives: [CollapseDirective, AnswerInputComponent]
+  directives: [CollapseDirective, AnswerInputComponent, DonutComponent]
 })
 
 export class AnswerComponent implements OnInit, OnDestroy {

@@ -20,6 +20,7 @@ var dashboard_component_1 = require("../../dashboard/components/dashboard.compon
 var answer_component_1 = require("./answer.component");
 var answer_input_component_1 = require("./answer-input.component");
 var questionfeed_service_1 = require("../services/questionfeed.service");
+var donut_component_1 = require("../../graphs/components/donut.component");
 var QuestionFeedComponent = (function () {
     function QuestionFeedComponent(_parent, _questionFeedService, ref) {
         this._parent = _parent;
@@ -58,7 +59,7 @@ var QuestionFeedComponent = (function () {
         core_1.Component({
             selector: 'question-feed-cmp',
             templateUrl: 'question-feed/templates/question_feed.html',
-            directives: [answer_component_1.AnswerComponent, answer_input_component_1.AnswerInputComponent],
+            directives: [answer_component_1.AnswerComponent, answer_input_component_1.AnswerInputComponent, donut_component_1.DonutComponent],
             providers: [questionfeed_service_1.QuestionFeedService]
         }),
         __param(0, core_1.Inject(core_1.forwardRef(function () { return dashboard_component_1.DashboardComponent; }))), 

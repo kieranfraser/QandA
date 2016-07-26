@@ -7,13 +7,14 @@ import {DashboardComponent} from "../../dashboard/components/dashboard.component
 import {AnswerComponent} from "./answer.component";
 import {AnswerInputComponent} from "./answer-input.component";
 import {QuestionFeedService} from "../services/questionfeed.service";
+import {DonutComponent} from "../../graphs/components/donut.component";
 
 declare var firebase: any;
 
 @Component({
   selector: 'question-feed-cmp',
   templateUrl: 'question-feed/templates/question_feed.html',
-  directives: [AnswerComponent, AnswerInputComponent],
+  directives: [AnswerComponent, AnswerInputComponent, DonutComponent],
   providers: [QuestionFeedService]
 })
 

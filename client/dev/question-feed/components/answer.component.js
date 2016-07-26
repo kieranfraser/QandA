@@ -16,6 +16,7 @@ var question_feed_component_1 = require("./question-feed.component");
 var questionfeed_service_1 = require("../services/questionfeed.service");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var answer_input_component_1 = require("./answer-input.component");
+var donut_component_1 = require("../../graphs/components/donut.component");
 var AnswerComponent = (function () {
     /**
      * 1. Get the question that was clicked.
@@ -43,7 +44,7 @@ var AnswerComponent = (function () {
             selector: 'answer-cmp',
             templateUrl: 'question-feed/templates/answer.html',
             providers: [questionfeed_service_1.QuestionFeedService],
-            directives: [ng2_bootstrap_1.CollapseDirective, answer_input_component_1.AnswerInputComponent]
+            directives: [ng2_bootstrap_1.CollapseDirective, answer_input_component_1.AnswerInputComponent, donut_component_1.DonutComponent]
         }),
         __param(0, core_1.Inject(core_1.forwardRef(function () { return question_feed_component_1.QuestionFeedComponent; }))), 
         __metadata('design:paramtypes', [question_feed_component_1.QuestionFeedComponent, questionfeed_service_1.QuestionFeedService, core_1.ChangeDetectorRef])

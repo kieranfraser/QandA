@@ -42,14 +42,16 @@
                         <bar-graph [selectedQuestion]="question" *ngIf="!isCollapsedStats" ></bar-graph>
                     </div>
                     <div class="col-xs-6 col-md-4">
-                        <doughnut-chart [selectedQuestion]="question" *ngIf="!isCollapsedStats"></doughnut-chart>
+                        <!--<doughnut-cmp [selectedQuestion]="question" *ngIf="!isCollapsedStats"></doughnut-cmp>-->
+                      <donut-cmp></donut-cmp>
                     </div>
                 </div>
             </div>
             <div class="container-fluid" *ngIf="question.type === 'Free-text'">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-8">
-                        <doughnut-chart [selectedQuestion]="question" *ngIf="!isCollapsedStats"></doughnut-chart>
+                        <!--<doughnut-chart [selectedQuestion]="question" *ngIf="!isCollapsedStats"></doughnut-chart>-->
+                      <donut-cmp></donut-cmp>
                     </div>
                     <div class="col-xs-6 col-md-4">
                     </div>
